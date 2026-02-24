@@ -1,0 +1,17 @@
+{
+  "name": "era-rinf-data-provisioning-workshop",
+  "version": "1.0.0",
+  "description": "ERA Rinf data provisioning",
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.49.0",
+    "@slidev/theme-default": "latest"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.57.0"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules
+.DS_Store
+dist
+*.local
+.remote-assets
+components.d.ts
+*.log
+.slidev
+SLIDEV_TEMPLATE_PROMPT.md
+WORKSHOP_AGENDA_PLAN_SECONDARY.md
+WORKSHOP_AGENDA_PLAN.md
+WORKSHOP_PREPARATION_TASKS.md
