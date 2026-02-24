@@ -1,0 +1,16 @@
+/* two-cols layout: actual CSS class is "two-columns" */
+.slidev-layout.two-columns {
+  column-gap: 1rem;
+}
+
+/* two-cols-header layout: uses plain 1fr columns (no minmax), so min-width fix needed */
+/* Override default repeat(2, 1fr) so the header row shrinks to content height */
+.slidev-layout.two-cols-header {
+  column-gap: 1rem;
+  grid-template-rows: auto 1fr !important;
+}
+.slidev-layout.two-cols-header > .col-left,
+.slidev-layout.two-cols-header > .col-right {
+  min-width: 0;
+  overflow: hidden;
+}

@@ -21,7 +21,7 @@ background: ./assets/background.png
 ### Training for Infrastructure Managers & NREs
 
 <div class="text-gray-400 mt-4">
-📅 25 February 2026 &nbsp;·&nbsp; 09:30 – 17:00
+📅 25 February 2026
 </div>
 
 <!--
@@ -41,29 +41,30 @@ layout: default
 <div class="grid grid-cols-2 gap-4 mt-2 text-sm">
 <div>
 
-| Time | Session |
-|------|---------|
-| 09:00 | ☕ Coffee & Networking |
-| 09:30 | 👋 Welcome & Introductions |
-| 10:00 | 🌐 The ERA Data Ecosystem |
-| 10:30 | 🔍 ERA Data Portal Tour |
-| 11:00 | ☕ Coffee Break |
-| 11:15 | 🧩 RINF Ontology |
-| 12:00 | 🗂️ Dataset Example |
-| 12:30 | 🍽️ Lunch |
+| Session |
+|---------|
+| ☕ Coffee & Networking |
+| 👋 Welcome & Introductions |
+| 🌐 The ERA Data Ecosystem |
+| 🔍 ERA Data Portal Tour |
+| ☕ Coffee Break |
+| 🧩 RINF Ontology |
+| 🗂️ Dataset Example |
+| 🍽️ Lunch |
 
 </div>
 <div>
 
-| Time | Session |
-|------|---------|
-| 13:30 | ⚙️ Data Provisioning Workflow |
-| 14:45 | ☕ Coffee Break |
-| 15:00 | ✅ SHACL Validation |
-| 16:00 | 🔑 Access, Help & Issues |
-| 16:30 | 💬 Q&A & Open Discussion |
-| 16:50 | 🎯 Wrap-up & Next Steps |
-| 17:00 | 🏁 End |
+| Session |
+|---------|
+| 🛤️ Creating a RINF 3.1 Dataset from XML |
+| ⚙️ Data Provisioning Workflow |
+| ☕ Coffee Break |
+| ✅ SHACL Validation |
+| 🔑 Access, Help & Issues |
+| 💬 Q&A & Open Discussion |
+| 🎯 Wrap-up & Next Steps |
+| 🏁 End |
 
 </div>
 </div>
@@ -79,8 +80,6 @@ layout: section
 ---
 
 # 👋 Welcome & Introductions
-
-### 09:30 – 10:00
 
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
   <span class="font-semibold text-white">① Welcome</span> · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · ⑧ Access · ⑨ Q&A
@@ -123,8 +122,6 @@ layout: section
 
 # 🌐 Understanding the ERA Data Ecosystem
 
-### 10:00 – 10:30
-
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
   ① Welcome · <span class="font-semibold text-white">② Ecosystem</span> · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · ⑧ Access · ⑨ Q&A
 </div>
@@ -136,7 +133,6 @@ Split: ~10 min legal, ~15 min why RDF, ~5 min terminology/quiz.
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # ⚖️ Legal Framework
@@ -289,6 +285,77 @@ This is exactly what RINF needs: 30+ countries, ~600 infrastructure managers, on
 -->
 
 ---
+layout: two-cols
+class: gap-8
+---
+
+# 🔎 What is SPARQL?
+
+**SPARQL** is a query language for RDF — like SQL, but for graphs.
+
+<v-click>
+
+A SPARQL query matches **triple patterns** against your data:
+
+```sparql
+PREFIX era: <http://data.europa.eu/949/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?tunnel ?name ?length
+WHERE {
+    ?tunnel a era:Tunnel ;
+            rdfs:label ?name ;
+            era:length ?length .
+    FILTER(?length > 1000)
+}
+ORDER BY DESC(?length)
+LIMIT 10
+```
+
+> Checkout this [fantastic wiki](https://kvistgaard.github.io/sparql/#/page/sparql%20wiki) about SPARQL!
+
+</v-click>
+
+::right::
+
+<div class="mt-6 text-sm space-y-3">
+
+<v-click>
+
+**Key concepts:**
+
+- **Triple pattern** `?tunnel a era:Tunnel`
+- **Variable** `?tunnel`, `?name` 
+- **PREFIX** — shorthand for long URIs
+- **FILTER** — numeric, string, date comparisons
+- **OPTIONAL** — left joins (like SQL `LEFT JOIN`)
+- **UNION** — combine results from two patterns
+
+</v-click>
+<v-click>
+
+**Four query forms:**
+
+| Form | Purpose |
+|---|---|
+| `SELECT` | Return a table of bindings |
+| 💡 `CONSTRUCT` | Return a new RDF graph |
+| `ASK` | Return true/false |
+| `DESCRIBE` | Return triples about a resource |
+
+</v-click>
+
+</div>
+
+<!--
+Most participants know SQL. The mental model is very similar — match patterns, filter, project.
+
+The key difference: instead of matching rows in a table, you match triples in a graph. Variables are unbound and can bind to any matching node.
+
+CONSTRUCT is the one to emphasise for this workshop — it's the transformation mechanism.
+-->
+
+---
 layout: default
 ---
 
@@ -344,6 +411,7 @@ layout: default
 <v-clicks>
 
 - 🗂️ Siloed data models, historically home grown
+- 🔤 Semantic interoperability
 - 📍 Multiple coordinate systems
 - 🔀 Hierarchical + network structure
 - ⏰ Temporal validity
@@ -362,7 +430,7 @@ layout: default
 
 <div class="mt-4 p-3 bg-blue-900 rounded text-sm">
 
-**Answer: Linked Data = standardisation**
+**Answers: Topology + Linked Data**
 
 - 🔑 Use **IRIs** as globally unique identifiers
 - 🔗 Use **RDF** to structure data
@@ -491,8 +559,6 @@ layout: section
 
 # 🔍 ERA Data Portal Tour
 
-### 10:30 – 11:00
-
 **https://data-interop.era.europa.eu/**
 
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
@@ -507,7 +573,6 @@ We will navigate through each application live.
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 🖥️ Portal Applications
@@ -565,7 +630,6 @@ Key message: these are the CONSUMER applications. As data providers, you feed th
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 📚 Portal Resources
@@ -626,8 +690,6 @@ class: text-center
 
 # ☕ Coffee Break
 
-### 11:00 – 11:15
-
 <div class="text-6xl mt-4">☕</div>
 
 _Back in 15 minutes for the ontology deep-dive_
@@ -637,8 +699,6 @@ layout: section
 ---
 
 # 🧩 RINF Ontology
-
-### 11:15 – 12:30
 
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
   ① Welcome · ② Ecosystem · ③ Portal · <span class="font-semibold text-white">④ Ontology</span> · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · ⑧ Access · ⑨ Q&A
@@ -875,7 +935,6 @@ Navigability: Both = bidirectional, AB = only A→B, BA = only B→A, None = not
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 🗺️ Topology: LinearElements & NetRelations — Worked Example
@@ -1079,7 +1138,6 @@ The NetAreaReference aggregates the NetLinearReference of every track in the are
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 🗺️ GeoSPARQL Geometry
@@ -1238,7 +1296,6 @@ This is one of the most common modelling mistakes: trying to put netReference on
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 📍 Operational Point Patterns
@@ -1352,7 +1409,6 @@ layout: default
 
 ---
 layout: two-cols-header
-gap: 2
 ---
 
 # 🚦 Signal
@@ -1386,7 +1442,6 @@ Both Signal and Switch are point elements — they use NetPointReference.
 
 ---
 layout: two-cols-header
-gap: 2
 ---
 
 # 🚇 Tunnel
@@ -1631,7 +1686,6 @@ era:kilometer holds the decimal value; era:hasLRS points to the LinearPositionin
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 🔗 Primary Location
@@ -1854,7 +1908,6 @@ The maximumMagneticField sub-resource is only required for axle counter type (/2
 
 ---
 layout: two-cols-header
-gap: 2
 ---
 
 # ⚡ Contact Line System (CLS)
@@ -1917,7 +1970,6 @@ Aggregation rule: if a track crosses from one electrification zone to another, e
 
 ---
 layout: two-cols-header
-gap: 2
 ---
 
 # 📡 ETCS
@@ -2316,27 +2368,22 @@ class: text-center
 
 # 🍽️ Lunch Break
 
-### 12:30 – 13:30
-
 <div class="text-6xl mt-4">🍽️</div>
 
-_Back at 13:30 for Data Provisioning Workflow_
+_Back after lunch for Creating a RINF 3.1 Dataset from XML_
 
 ---
 layout: section
 ---
 
-# ⚙️ Data Provisioning Workflow
-
-### 13:30 – 14:45
+# 🛤️ Creating a RINF 3.1 Dataset from XML
 
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
-  ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · <span class="font-semibold text-white">⑥ Pipeline</span> · ⑦ SHACL · ⑧ Access · ⑨ Q&A
+  ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · <span class="font-semibold text-white">⑥ railML</span> · ⑦ Pipeline · ⑧ SHACL · ⑨ Techniques · ⑩ Access · ⑪ Q&A
 </div>
 
 <!--
-75 minutes.
-Split: 10 min railML case study, 35 min pipeline walkthrough, 15 min reference docs, 15 min hands-on.
+45 minutes — walks through the railML-to-ERA case study repository.
 -->
 
 ---
@@ -2393,6 +2440,20 @@ SPARQL Anything removes the need for any custom XML parser — the railML is que
 CONSTRUCT queries are the heart of the mapping — each infrastructure element type has its own .rq file.
 Post-processing handles two things: WKT geometry from topology (Shapely), and hasPart/isPartOf inference.
 Local SHACL validation before upload saves a lot of round trips with the ERA portal.
+-->
+
+---
+layout: section
+---
+
+# ⚙️ Data Provisioning Workflow
+
+<div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
+  ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ railML · <span class="font-semibold text-white">⑦ Pipeline</span> · ⑧ SHACL · ⑨ Techniques · ⑩ Access · ⑪ Q&A
+</div>
+
+<!--
+30 minutes — pipeline walkthrough, reference docs, hands-on.
 -->
 
 ---
@@ -2453,7 +2514,6 @@ The validation report shows each violation with: the resource URI, the property,
 
 ---
 layout: two-cols-header
-gap: 2
 ---
 
 # 📤 Full vs Partial Upload
@@ -2488,9 +2548,9 @@ Merged into existing dataset.
 - New tracks or OPs added
 - Property corrections
 
-<div class="text-xs">
-
 **Format:** a ZIP file containing:
+
+<div class="text-xs">
 
 | File | Purpose |
 |---|---|
@@ -2509,25 +2569,19 @@ Practical tip: for regular incremental updates, maintain a version control syste
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 📄 Reference Documents
 
 Linking documents to infrastructure elements (`era:Document`)
 
-<v-clicks>
-
-- 🚇 Emergency plans (Tunnels)
-- ⚡ Regenerative braking conditions
-- ⚠️ Local rules and restrictions
-- 📐 Schematic overviews (OPs)
-
-</v-clicks>
-
 <v-click>
 
 ```turtle
+<_:TUN001>
+    era:document
+      <era:documents/a22e9fbd9a969...>, <era:documents/b344e533ecbb43...> .
+      
 <era:documents/a22e9fbd9a969ca6e2cbb4b7093d3b4583c57344>
     a era:Document ;
     foaf:name "emergency_plan.pdf"^^xsd:string ;
@@ -2544,9 +2598,6 @@ Linking documents to infrastructure elements (`era:Document`)
       ^^xsd:anyURI ;
     dcterms:language "fr".
 
-<_:TUN001>
-    era:document
-      <era:documents/a22e9fbd9a969...>, <era:documents/b344e533ecbb43...> .
 ```
 
 </v-click>
@@ -2590,6 +2641,12 @@ Language requirement: at least 2 EU official languages. This usually means Engli
 layout: default
 ---
 
+![How to get the URL of an uploaded reference document](./assets/how-to-get-uploaded-document-url.gif)
+
+---
+layout: default
+---
+
 # 🧪 Hands-on: Upload to UAT
 
 <div class="text-lg mt-4">
@@ -2600,7 +2657,7 @@ layout: default
 4. 📤 Upload the railML example dataset (`.ttl` or `.nt`)
 5. ⏳ Monitor pipeline execution — watch each stage
 6. 📋 Review the validation report
-7. 🔧 Identify any violations and discuss
+7. 🔧 Identify any violations and discuss²
 
 </div>
 
@@ -2629,8 +2686,6 @@ class: text-center
 
 # ☕ Coffee Break
 
-### 14:45 – 15:00
-
 <div class="text-6xl mt-4">☕</div>
 
 _Back in 15 minutes for SHACL Validation_
@@ -2640,8 +2695,6 @@ layout: section
 ---
 
 # ✅ Understanding & Performing SHACL Validation
-
-### 15:00 – 16:00
 
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
   ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · <span class="font-semibold text-white">⑦ SHACL</span> · ⑧ Access · ⑨ Q&A
@@ -2653,11 +2706,12 @@ Split: 25 min SHACL theory + error types, 35 min tools and hands-on.
 -->
 
 ---
-layout: two-cols
-gap: 2
+layout: two-cols-header
 ---
 
 # 🔍 What is SHACL?
+
+::left::
 
 **Shapes Constraint Language** — W3C standard for RDF validation
 
@@ -2717,10 +2771,12 @@ Severity: Violations block acceptance in some contexts but the current ERA Datas
 -->
 
 ---
-layout: default
+layout: two-cols-header
 ---
 
 # 📋 Reading a SHACL Validation Report
+
+::left::
 
 ```turtle
 # A typical SHACL validation report
@@ -2737,7 +2793,11 @@ layout: default
     ] .
 ```
 
+::right::
+
 **How to interpret:**
+
+<div class="mt-4 text-sm">
 
 | Field | Meaning |
 |---|---|
@@ -2745,6 +2805,13 @@ layout: default
 | `sh:resultPath` | **Which property** is affected |
 | `sh:resultMessage` | **What's wrong** |
 | `sh:sourceShape` | Which SHACL shape triggered it |
+
+</div>
+
+<hr class="my-3" />
+
+> **Note**: When SPARQLConstraints fail, they become more difficult to analyse because there's no reference to the SPARQLConstraint itself. Only the sh:resultMessage will be of help (when ERA patched the UNBOUND variable bug)
+
 
 <!--
 The validation report is your debugging tool. Always start with:
@@ -2759,70 +2826,6 @@ Common pattern: thousands of violations all pointing to the same missing triple 
 layout: default
 ---
 
-# 🚨 Most Common Validation Errors
-
-<div class="grid grid-cols-5 gap-4 text-sm mt-2">
-<div class="col-span-2">
-
-| # | Error | Fix strategy |
-|---|-------|-------------|
-| 1 | Missing `era:validity` | SPARQL UPDATE |
-| 2 | Coord order swapped | Fix in generation |
-| 3 | Missing `skos:inScheme` | Post-proc UPDATE |
-| 4 | `netReference` on CLS | Remove, link from track |
-| 5 | `xsd:double` vs `xsd:integer` | Datatype UPDATE |
-| 6 | Deprecated `era:InfraManager` | v3.1 migration |
-| 7 | No CLS for non-electrified | Add type `/40` |
-
-<div class="mt-3 text-xs text-gray-400">
-
-💡 Errors #1 #3 #5 → next slide: one SPARQL UPDATE fixes all
-
-</div>
-</div>
-<div class="col-span-3 text-xs">
-
-**Error #1 — missing `era:validity` (every element!):**
-
-```turtle
-# ❌ Wrong — no validity at all
-_:TRK001 a era:RunningTrack .
-# ✅ Correct
-_:TRK001 era:validity [
-  a time:Interval ;
-  time:hasBeginning [
-    a time:Instant ;
-    time:inXSDDate "2025-01-01"^^xsd:date ] ] .
-```
-
-**Error #7 — Open World: absent ≠ not electrified:**
-
-```turtle
-# ❌ Wrong — omitting CLS means UNKNOWN, not "not electrified"
-# ✅ Correct — explicitly declare the type:
-_:TRK001 era:contactLineSystem [
-  a era:ContactLineSystem ;
-  era:contactLineSystemType era-cls:40 ] .
-# era-cls:40 = Not electrified (.../contact-line-systems/40)
-```
-
-</div>
-</div>
-
-<!--
-These are the 7 most common issues in practice, roughly in order of frequency.
-
-Key insight: errors #1, #3, and #5 are systematic — they affect nearly every element in a new submission. Fix them all at once with SPARQL UPDATE (next slide).
-
-Errors #2, #4, #6, #7 require modelling changes in the generation pipeline itself.
-
-The Open World assumption (#7) catches people from XML/XML Schema backgrounds where "element absent" = "not applicable". In RDF, absence only means "we don't know". You must make statements explicitly.
--->
-
----
-layout: default
----
-
 # 🔧 Systematic SPARQL UPDATE Fixes
 
 Most errors repeat across thousands of elements — fix them all at once in post-processing:
@@ -2830,7 +2833,9 @@ Most errors repeat across thousands of elements — fix them all at once in post
 <div class="grid grid-cols-2 gap-4 text-xs mt-2">
 <div>
 
-**Fix #1 — add `era:validity` to all elements missing it:**
+<v-click>
+
+**Add a default `era:validity` to all elements missing it:**
 
 ```sparql
 PREFIX era:  <http://data.europa.eu/949/>
@@ -2851,10 +2856,14 @@ WHERE {
 }
 ```
 
+</v-click>
+
 </div>
 <div>
 
-**Fix #3 — add `skos:inScheme` to country references:**
+<v-click>
+
+**Add `skos:inScheme` to country references:**
 
 ```sparql
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -2869,8 +2878,10 @@ WHERE {
   FILTER NOT EXISTS { ?country skos:inScheme [] }
 }
 ```
+</v-click>
+<v-click>
 
-**Fix #5 — correct `xsd:double` → `xsd:integer` for speeds:**
+**Change datatype `xsd:double` → `xsd:integer` for speeds:**
 
 ```sparql
 DELETE { ?e era:maximumPermittedSpeed ?old }
@@ -2881,6 +2892,8 @@ WHERE {
   BIND(xsd:integer(str(?old)) AS ?corrected)
 }
 ```
+
+</v-click>
 
 </div>
 </div>
@@ -2897,10 +2910,11 @@ Fix #5: Check SHACL shapes for other properties that also require xsd:integer �
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 🛠️ SHACL Validation Tools
+
+<v-click>
 
 ### Local: PySHACL
 
@@ -2910,9 +2924,6 @@ from rdflib import Graph
 
 data = Graph().parse("my-data.ttl")
 shapes = Graph().parse("ERA-RINF-shapes.ttl")
-
-# Apply shape fixes first!
-# (exclude-ontology-uris-from-type-check.sparql)
 
 conforms, report, text = validate(
     data,
@@ -2925,11 +2936,15 @@ if not conforms:
 ```
 
 **Free and open source. Suitable for automation.**  
-⚠️ Slower than MapLib (~250s for large graphs)
+⚠️ Slower than MapLib (~250s for a small graph)
+
+</v-click>
 
 ::right::
 
 <div class="mt-4 text-sm">
+
+<v-click>
 
 ### Local: MapLib
 
@@ -2937,17 +2952,20 @@ if not conforms:
 import maplib
 
 m = maplib.Mapping()
-m.read_triples("my-data.ttl")
-m.read_shacl("ERA-RINF-shapes.ttl",
-             named_graph="urn:shapes")
+m.read("my-data.ttl", format='turtle')
+m.read("ERA-RINF-shapes.ttl",
+             named_graph="urn:shapes", 
+             format='turtle')
 
 report = m.validate()
 ```
 
 **Very fast (~1.5s vs 250s for same data)**  
-⚠️ Requires paid licence for SHACL validation
+⚠️ Requires [paid licence](https://payhip.com/b/cOImS) for SHACL validation
 
-<hr class="my-3" />
+</v-click>
+
+<v-click>
 
 ### Remote: EU Interoperability Test Bed
 
@@ -2957,6 +2975,8 @@ report = m.validate()
 - Upload dataset + shapes
 - Retrieve full validation report
 - Good reference implementation
+
+</v-click>
 
 </div>
 
@@ -2984,8 +3004,8 @@ layout: default
    `<era:concepts/contact-line-systems/10>` has no `rdf:type` in your data (it's defined in ERA's triplestore)  
    → Fix: `exclude-ontology-uris-from-type-check.sparql`
 
-2. **Deprecated-property checks fire on external vocabulary**  
-   GeoSPARQL, OWL-Time properties trip ERA's deprecated-property SHACL shapes  
+2. **Deprecated-property checks fire on ERA ontology**  
+   When adding ontology into datashape, ERA's own deprecated-property SHACL shapes are validation results
    → Fix: `exclude-ontology-uris-from-deprecated-check.sparql`
 
 3. **GeoSPARQL `sh:sparql` constraints throw errors**  
@@ -3008,7 +3028,7 @@ This is a practical issue that can waste hours if you don't know about it.
 
 The ERA SHACL shapes have some known quirks:
 1. They check that every IRI has an rdf:type — but SKOS concepts from ERA's vocabulary are only typed in ERA's own triplestore, not in your upload. So they appear "untyped" to a standalone validator.
-2. Deprecated-property shapes sometimes fire incorrectly on external ontology properties.
+2. Deprecated-property shapes sometimes fire incorrectly on ontology properties.
 3. GeoSPARQL extension functions (geof:distance etc.) are not standard SPARQL and most SHACL validators can't evaluate them.
 
 The shape fixes are SPARQL UPDATE queries that modify the shapes graph to exclude these false positives.
@@ -3029,7 +3049,7 @@ layout: default
 2. 🐍 Install pySHACL: `pip install pyshacl`
 3. ▶️ Run validation on the example dataset
 4. 📋 Count violations vs warnings
-5. 🔧 Apply shape fixes and re-run — how many spurrious warnings disappear?
+5. 🔧 Apply shape fixes and re-run — how many warnings disappear?
 
 </div>
 <div>
@@ -3038,7 +3058,7 @@ layout: default
 
 1. ✏️ Make these deliberate mistakes in the dataset:
    - Remove `era:validity` from one track
-   - Swap lat/lon in a geometry
+   - Remove `era:trackRaisedPantographsDistanceAndSpeed` from a track
    - Remove `era:netReference` from an OP
 2. ▶️ Re-validate
 3. 🔍 Find the violations in the report
@@ -3049,8 +3069,8 @@ layout: default
 
 <div class="mt-4 p-3 bg-gray-800 rounded text-sm">
 
-💡 **Bonus:** Compare local validation results with the EU Interoperability Test Bed.  
-Are there differences? Discuss why.
+💡 **Bonus:** Compare local validation results in pySHACL and maplib or another validator.
+Are there differences? 
 
 </div>
 
@@ -3251,8 +3271,6 @@ layout: section
 
 # 🔑 Getting Access, Help & Reporting Issues
 
-### 16:00 – 16:30
-
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
   ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · ⑧ Techniques · <span class="font-semibold text-white">⑨ Access</span> · ⑩ Q&A
 </div>
@@ -3264,7 +3282,6 @@ Split: 10 min access setup, 20 min GitLab + support channels.
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 🔐 Getting Access
@@ -3326,7 +3343,6 @@ The UAT environment is specifically for testing and training. It's safe to uploa
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 🐛 Reporting Issues — GitLab
@@ -3513,8 +3529,6 @@ layout: section
 
 # 💬 Q&A & Open Discussion
 
-### 16:30 – 16:50
-
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
   ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · ⑧ Access · <span class="font-semibold text-white">⑨ Q&A</span>
 </div>
@@ -3564,8 +3578,6 @@ layout: section
 
 # 🎯 Wrap-up & Next Steps
 
-### 16:50 – 17:00
-
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
   ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · ⑧ Access · ⑨ Q&A · <span class="font-semibold text-white">🎯 Wrap-up</span>
 </div>
@@ -3605,7 +3617,6 @@ If participants only remember 3 things:
 
 ---
 layout: two-cols
-gap: 2
 ---
 
 # 🚀 Next Steps
@@ -3641,6 +3652,7 @@ gap: 2
 | 📝 User Manual | [RINF User Manual](https://data-interop.era.europa.eu/RINF-User%20Manual%20v2.0.pdf) |
 | 🔍 SPARQL (custom) | [yasgui.matdata.eu](https://yasgui.matdata.eu/) |
 | 🐍 Example repo | [raillML-to-ERA](https://github.com/Matdata-eu/raillML-to-ERA) |
+| SHACL engines | [Awesome semantic shapes](https://github.com/w3c-cg/awesome-semantic-shapes) |
 
 </v-click>
 </div>

@@ -1605,6 +1605,8 @@ Several ERA properties reference `era:Document` instances (e.g., `era:conditions
    - UAT base URL: `https://uat.ld4rail.fpfis.tech.ec.europa.eu`
 4. Use the ERA namespace URI `http://data.europa.eu/949/documents/{id}` as the URI for the `era:Document` resource in your RDF.
 
+![How to get the URL of an uploaded reference document](./assets/how-to-get-uploaded-document-url.gif)
+
 A Document resource looks like:
 
 ```turtle
