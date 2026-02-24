@@ -43,25 +43,24 @@ layout: default
 
 | # | Session |
 |---|---------|
-| | ☕ Coffee & Networking |
 | 1 | 👋 Welcome & Introductions |
 | 2 | 🌐 The ERA Data Ecosystem |
 | 3 | 🔍 ERA Data Portal Tour |
 | 4 | 🧩 RINF Ontology Deep-dive |
 | 5 | 🗂️ Dataset Example Walk-through |
+| 6 | 🛤️ Creating a RINF 3.1 Dataset from XML |
 
 </div>
 <div>
 
 | # | Session |
 |---|---------|
-| 6 | 🛤️ Creating a RINF 3.1 Dataset from XML |
 | 7 | ⚙️ Data Provisioning Workflow |
 | 8 | ✅ SHACL Validation & Troubleshooting |
 | 9 | 🔑 Access, Help & Reporting Issues |
 | 10 | 💬 Q&A & Open Discussion |
-| | 🎯 Wrap-up & Next Steps |
-| | 🏁 End |
+| 11 | 🎯 Wrap-up & Next Steps |
+| 12 | 🏁 End |
 
 </div>
 </div>
