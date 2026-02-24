@@ -115,6 +115,36 @@ These are the 7 concrete objectives. At the end of the day we'll briefly revisit
 Key message: this is not a theoretical lecture. We will get our hands dirty.
 -->
 
+---
+layout: two-cols-header
+---
+
+# 📎 Workshop Resources
+
+::left::
+
+Scan to open today's slide deck:
+
+<div class="flex flex-col items-center mt-4 gap-2">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://github.com/Matdata-eu/slides-era-rinf-data-provisioning" class="rounded" />
+  <span class="text-xs text-gray-400">github.com/Matdata-eu/<br/>slides-era-rinf-data-provisioning</span>
+</div>
+
+::right::
+
+Scan to open the railML-to-ERA dataset generator:
+
+<div class="flex flex-col items-center mt-4 gap-2">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://github.com/Matdata-eu/raillML-to-ERA" class="rounded" />
+  <span class="text-xs text-gray-400">github.com/Matdata-eu/<br/>raillML-to-ERA</span>
+</div>
+
+<!--
+Give everyone a minute to scan and bookmark both repositories.
+The slide deck is the reference material — everything covered today is in there.
+The railML-to-ERA repo is what we'll use hands-on during the afternoon sessions.
+-->
+
 
 ---
 layout: section
@@ -2320,6 +2350,11 @@ layout: section
   ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · <span class="font-semibold text-white">⑤ Dataset</span> · ⑥ Pipeline · ⑦ SHACL · ⑧ Access · ⑨ Q&A
 </div>
 
+<div class="absolute right-8 top-20 flex flex-col items-center gap-1">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://github.com/Matdata-eu/raillML-to-ERA" class="rounded" />
+  <span class="text-xs text-gray-400">raillML-to-ERA</span>
+</div>
+
 <!--
 Short hands-on section: explore the example railML-derived dataset.
 -->
@@ -3169,8 +3204,6 @@ If you have track **GIS geometry** (LineStrings) but no topology, you can genera
 2. **Detect intersections & split** — T-intersections, X-crossings; splits at switches and junctions
 3. **Build ERA topology** — each segment → `era:LinearElement`; endpoint clusters → `era:NetRelation`
 
-**Navigability** is derived from azimuth at endpoints:
-
 | Node degree | Pattern |
 |---|---|
 | 2 — simple join | 1 relation, `Both` |
@@ -3266,6 +3299,111 @@ ZIP upload is supported for large NT files.
 -->
 
 ---
+layout: default
+---
+
+# 🔗 URI Dereferencing
+
+**Make every ERA IRI a clickable, human-readable resource** — using the open-source [`Matdata-eu/simple-dereferencing`](https://github.com/Matdata-eu/simple-dereferencing) tool.
+
+<div class="grid grid-cols-2 gap-6 mt-4 text-sm">
+<div>
+
+**What it does**
+
+- Client-side SPA served by nginx in Docker
+- Runs a SPARQL `DESCRIBE` on any URI → renders HTML
+- **Content negotiation**: Turtle, RDF/XML, JSON-LD (via `Accept` header or UI button)
+- **Geo**: detects `gsp:hasGeometry` → renders a **Leaflet map** automatically
+
+**Quick start**
+
+```bash
+docker run -p 8080:80 \
+  -e SPARQL_ENDPOINT=https://linked.ec.europa.eu/sparql \
+  -e BASE_URI=https://linked.ec.europa.eu/era/id \
+  ghcr.io/matdata-eu/uri-dereferencer:latest
+```
+
+</div>
+<div>
+
+**Example URIs to try**
+
+```
+https://data.matdata.eu/_operationalPoints_opp141
+```
+
+```
+https://dim-dev.review.apps.banenor.no/data/
+    _station_3f3f78ee-4ea4-42e2-9dc3-dcf4c3a43e32
+```
+
+**Use cases**
+- ✅ Check submitted data looks correct before validation
+- ✅ Share a URI with a colleague — gets human-readable page
+- ✅ Debug geometry: WKT coordinate → Leaflet map pin
+- ✅ Inspect RDF in Turtle / JSON-LD without a SPARQL client
+
+</div>
+</div>
+
+<!--
+URI dereferencing is the "last mile" of Linked Data — it turns an abstract IRI into a page a human can read.
+The simple-dereferencing tool is a lightweight nginx container: point it at any SPARQL endpoint and a base URI, and every URI under that base becomes a dereferenceable resource.
+Participants running the tool locally can paste any ERA URI into their browser and immediately see the structured data plus a map if geometry is present.
+This is also a useful debugging technique: if your submitted data doesn't show up correctly here, there's a problem upstream.
+-->
+
+---
+layout: default
+---
+
+# 🤖 Skills for ERA Data Provisioning
+
+<v-clicks>
+
+This repository ships **GitHub Copilot skills** — domain-specific instruction files that teach an AI agent (or a human...) how to work with ERA data. Load them in VS Code Copilot Chat to get expert-level help.
+
+<div class="grid grid-cols-3 gap-3 mt-4 text-sm">
+<div class="bg-gray-800 rounded p-3">
+
+**Authoring CONSTRUCT queries**
+
+- `railml-sparql-construct` — write SPARQL CONSTRUCT queries transforming railML 3.2 XML → ERA RDF following project conventions
+- `era-construct-workflow` — full workflow for adding new element mappings: planning → implementation → testing
+
+</div>
+<div class="bg-gray-800 rounded p-3">
+
+**Positioning & topology**
+
+- `era-dual-positioning` — implement TopologicalCoordinate + LinearPositioningSystemCoordinate (KilometricPosts)
+- `era-topology-relations` — infer containment/proximity from network topology overlap
+- `era-wkt-geometry-enrichment` — compute GeoSPARQL WKT geometries by interpolating against LinearElement LINESTRINGs
+
+</div>
+<div class="bg-gray-800 rounded p-3">
+
+**Resources, URIs & SHACL**
+
+- `era-functional-resources` — ContactLineSystem, ETCS, TrainDetectionSystem without `netReference`
+- `era-resource-uri-minting` — BIND(IRI(...)) patterns, namespace choices
+- `era-shacl-analysis` — query SHACL shapes to find required properties
+- `era-mcp-query` — run SPARQL via MCP servers against ERA ontology or railML data
+
+</div>
+</div>
+
+</v-clicks>
+
+<!--
+These skills live under .github/skills/ in the repository.
+In VS Code, open Copilot Chat and reference the skill by name — the AI will follow the skill's instructions when helping you with that specific task.
+This means a Copilot Chat session can guide you through writing a correct CONSTRUCT query for a new infrastructure element type, handling all the ERA-specific conventions automatically.
+-->
+
+---
 layout: section
 ---
 
@@ -3299,11 +3437,6 @@ layout: two-cols
 3. Single Sign-On (EU Login) credentials assigned
 4. Verify login on UAT first
 
-**User roles:**
-- **Viewer**: read-only access
-- **Data Provider**: can upload datasets
-- **Admin**: full dataset management
-
 </v-clicks>
 
 ::right::
@@ -3318,19 +3451,10 @@ layout: two-cols
 | Login loop | Clear cookies, try private browser |
 | Credentials expired | Contact Service Desk |
 | Wrong environment | Check URL — UAT vs Production |
-| No organisation visible | Wait 24h after access granted |
 | Dataset Manager not showing | Correct role not assigned |
 
 </v-click>
 
-<v-click>
-<div class="mt-4 p-2 bg-green-900 rounded text-sm">
-
-🎯 **Right now**: verify your login to UAT  
-https://uat.ld4rail.fpfis.tech.ec.europa.eu/
-
-</div>
-</v-click>
 </div>
 
 <!--
@@ -3422,25 +3546,21 @@ layout: default
 
 Use for:
 - Account/access issues
-- Urgent pipeline problems
+- Pipeline problems
 - General RINF questions
-
-🕐 Business hours
 
 </div>
 <div class="bg-gray-800 rounded p-4">
 
 ### 🦊 ERA GitLab
 
-**gitlab.com/era-europa-eu/...**
+**[gitlab.com/era-europa-eu/...](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology)**
 
 Use for:
 - Ontology bugs
 - SHACL shape issues
 - Improvement proposals
 - Public discussion
-
-🌐 Public, async
 
 </div>
 <div class="bg-gray-800 rounded p-4">
@@ -3454,24 +3574,8 @@ Use for:
 - No follow-up action needed
 - Process/policy questions
 
-✉️ Async
-
 </div>
-<div class="bg-gray-800 rounded p-4">
 
-### 🏢 RINF Network
-
-**SharePoint (RINFNet)**
-
-Use for:
-- Working group collaboration
-- Shared templates & examples
-- Meeting minutes & recordings
-- Peer discussion between IMs
-
-🔒 EU Login required
-
-</div>
 </div>
 
 <div class="mt-4 p-3 bg-blue-900 rounded text-sm">
@@ -3509,9 +3613,9 @@ layout: default
 
 3. 📋 Read a recent issue: does it have enough information? What's missing?
 
-4. ✏️ **Draft a sample issue** based on something you encountered today  
-   (or a fictional scenario)  
-   — Fill in all sections of the template — but **don't submit** unless you have a real issue!
+4. 🗣️ Add your voice to the [common characteristics subset issue](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology/-/issues/281) or [the lineside distance indication](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology/-/issues/252) discussion.
+
+5. ✏️ **Create an issue** based on a bug you encountered today.
 
 </div>
 
