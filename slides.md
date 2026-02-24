@@ -11,7 +11,7 @@ drawings:
 transition: slide-left
 class: text-center
 mdc: true
-background: ./assets/background.png
+background: background.png
 ---
 
 <img src="./assets/European_Union_Agency_for_Railways_logo.svg" class="h-14 absolute top-6 left-6" />
@@ -38,33 +38,30 @@ layout: default
 
 # Today's Agenda 📋
 
-<div class="grid grid-cols-2 gap-4 mt-2 text-sm">
+<div class="grid grid-cols-2 gap-6 mt-2 text-sm">
 <div>
 
-| Session |
-|---------|
-| ☕ Coffee & Networking |
-| 👋 Welcome & Introductions |
-| 🌐 The ERA Data Ecosystem |
-| 🔍 ERA Data Portal Tour |
-| ☕ Coffee Break |
-| 🧩 RINF Ontology |
-| 🗂️ Dataset Example |
-| 🍽️ Lunch |
+| # | Session |
+|---|---------|
+| | ☕ Coffee & Networking |
+| 1 | 👋 Welcome & Introductions |
+| 2 | 🌐 The ERA Data Ecosystem |
+| 3 | 🔍 ERA Data Portal Tour |
+| 4 | 🧩 RINF Ontology Deep-dive |
+| 5 | 🗂️ Dataset Example Walk-through |
 
 </div>
 <div>
 
-| Session |
-|---------|
-| 🛤️ Creating a RINF 3.1 Dataset from XML |
-| ⚙️ Data Provisioning Workflow |
-| ☕ Coffee Break |
-| ✅ SHACL Validation |
-| 🔑 Access, Help & Issues |
-| 💬 Q&A & Open Discussion |
-| 🎯 Wrap-up & Next Steps |
-| 🏁 End |
+| # | Session |
+|---|---------|
+| 6 | 🛤️ Creating a RINF 3.1 Dataset from XML |
+| 7 | ⚙️ Data Provisioning Workflow |
+| 8 | ✅ SHACL Validation & Troubleshooting |
+| 9 | 🔑 Access, Help & Reporting Issues |
+| 10 | 💬 Q&A & Open Discussion |
+| | 🎯 Wrap-up & Next Steps |
+| | 🏁 End |
 
 </div>
 </div>
@@ -87,6 +84,43 @@ layout: section
 
 <!--
 30 minutes for welcome and round-table introductions.
+-->
+
+---
+layout: default
+---
+
+# 👋 Hello, I am...
+
+<div class="grid grid-cols-2 gap-8 mt-4">
+<div>
+
+**About me**
+
+- 🧑 I am ...
+- 🏢 I work for ...
+- 🛤️ My role: ...
+
+**My experience with RINF data**
+
+- 📄 I currently produce RINF data as ...
+- 🔧 Tools I use: ...
+
+</div>
+<div>
+
+**Why I'm here today**
+
+- 🎯 I want to learn how to ...
+- ❓ My biggest open question is ...
+- 💬 I'd love to discuss ...
+
+</div>
+</div>
+
+<!--
+Give participants 2–3 minutes to prepare, then go around the room.
+Encourage them to be specific about their current pain points — it helps tailor the afternoon sessions.
 -->
 
 ---
@@ -712,17 +746,6 @@ SPARQL tip: the ERA-provided SPARQL interface is functional but basic. The Yasgu
 
 GitLab is where all the source material lives: ontology OWL files, SHACL shapes, SKOS concept schemes, and the issue tracker for reporting problems.
 -->
-
----
-layout: center
-class: text-center
----
-
-# ☕ Coffee Break
-
-<div class="text-6xl mt-4">☕</div>
-
-_Back in 15 minutes for the ontology deep-dive_
 
 ---
 layout: section
@@ -2397,17 +2420,6 @@ Common findings during this exercise:
 -->
 
 ---
-layout: center
-class: text-center
----
-
-# 🍽️ Lunch Break
-
-<div class="text-6xl mt-4">🍽️</div>
-
-_Back after lunch for Creating a RINF 3.1 Dataset from XML_
-
----
 layout: section
 ---
 
@@ -2713,17 +2725,6 @@ The example dataset is specifically designed to include some common patterns (an
 
 Encourage people to use their own small real data samples if they have them prepared.
 -->
-
----
-layout: center
-class: text-center
----
-
-# ☕ Coffee Break
-
-<div class="text-6xl mt-4">☕</div>
-
-_Back in 15 minutes for SHACL Validation_
 
 ---
 layout: section
