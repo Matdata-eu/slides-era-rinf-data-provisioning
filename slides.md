@@ -11,10 +11,10 @@ drawings:
 transition: slide-left
 class: text-center
 mdc: true
-background: /assets/background.png
+background: ./assets/background.png
 ---
 
-<img src="/assets/European_Union_Agency_for_Railways_logo.svg" class="h-14 absolute top-6 left-6" />
+<img src="./assets/European_Union_Agency_for_Railways_logo.svg" class="h-14 absolute top-6 left-6" />
 
 # RINF Data Provisioning Workshop
 
@@ -136,6 +136,7 @@ Split: ~10 min legal, ~15 min why RDF, ~5 min terminology/quiz.
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # ⚖️ Legal Framework
@@ -506,6 +507,7 @@ We will navigate through each application live.
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🖥️ Portal Applications
@@ -563,6 +565,7 @@ Key message: these are the CONSUMER applications. As data providers, you feed th
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 📚 Portal Resources
@@ -872,6 +875,7 @@ Navigability: Both = bidirectional, AB = only A→B, BA = only B→A, None = not
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🗺️ Topology: LinearElements & NetRelations — Worked Example
@@ -1075,6 +1079,7 @@ The NetAreaReference aggregates the NetLinearReference of every track in the are
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🗺️ GeoSPARQL Geometry
@@ -1233,6 +1238,7 @@ This is one of the most common modelling mistakes: trying to put netReference on
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 📍 Operational Point Patterns
@@ -1346,6 +1352,7 @@ layout: default
 
 ---
 layout: two-cols-header
+gap: 2
 ---
 
 # 🚦 Signal
@@ -1379,6 +1386,7 @@ Both Signal and Switch are point elements — they use NetPointReference.
 
 ---
 layout: two-cols-header
+gap: 2
 ---
 
 # 🚇 Tunnel
@@ -1623,6 +1631,7 @@ era:kilometer holds the decimal value; era:hasLRS points to the LinearPositionin
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🔗 Primary Location
@@ -1845,6 +1854,7 @@ The maximumMagneticField sub-resource is only required for axle counter type (/2
 
 ---
 layout: two-cols-header
+gap: 2
 ---
 
 # ⚡ Contact Line System (CLS)
@@ -1907,6 +1917,7 @@ Aggregation rule: if a track crosses from one electrification zone to another, e
 
 ---
 layout: two-cols-header
+gap: 2
 ---
 
 # 📡 ETCS
@@ -2325,54 +2336,63 @@ layout: section
 
 <!--
 75 minutes.
-Split: 10 min Norway case study, 35 min pipeline walkthrough, 15 min reference docs, 15 min hands-on.
+Split: 10 min railML case study, 35 min pipeline walkthrough, 15 min reference docs, 15 min hands-on.
 -->
 
 ---
-layout: two-cols
+layout: default
 ---
 
-# 🇳🇴 Case Study: Norway's First Upload
+# 🛤️ railML Case Study: ERA Dataset from XML
 
-**What we learned from Bane NOR's data provisioning journey:**
+Convert a **railML 3.2** infrastructure file into RINF-compatible RDF using a 4-step pipeline:
 
-<v-clicks>
+```
+railML XML  →  [01-prep]        SPARQL Anything  →  one-eyed-graph.ttl
+            →  [02-construct]   SPARQL CONSTRUCT  →  era-graph.ttl
+            →  [03-post-process] Geometry enrichment → era-graph-enriched.ttl
+            →  [04-validate]    SHACL validation  →  validation-report.ttl
+```
 
-- 📦 **Source**: internal GIS + asset management systems
-- 🔧 **Tool**: SPARQL-Anything + CONSTRUCT queries
-- 📐 **Topology**: generated from GIS LineString geometries
-- 📍 **Positioning**: topological coordinates interpolated from geometry
-- ✅ **Validation**: ~2000 SHACL violations on first run → 12 after fixes
+<div class="grid grid-cols-4 gap-3 mt-4 text-sm">
+<div class="bg-gray-800 rounded p-2">
 
-</v-clicks>
+**① Prep**  
+SPARQL Anything ingests the XML — no custom parser needed. Output: raw RDF mirroring the railML structure.
 
-::right::
+</div>
+<div class="bg-gray-800 rounded p-2">
 
-<div class="mt-8 text-sm">
-<v-click>
+**② Construct**  
+SPARQL CONSTRUCT queries map railML concepts → ERA ontology classes and properties.
 
-**Key lessons:**
+</div>
+<div class="bg-gray-800 rounded p-2">
 
-| Challenge | Solution |
-|-----------|----------|
-| GIS has no ERA topology | Generate from geometry intersection algorithm |
-| IM code format changed | Use era:Body + OrganisationRole |
-| Missing SKOS inScheme | Add country inScheme triples in post-proc |
-| Coordinate order wrong | Validate POINT(lon lat) not (lat lon) |
-| Validity missing | SPARQL UPDATE adds it to all elements |
+**③ Post-process**  
+Shapely interpolates WKT geometries from topological coordinates. Topology relations inferred.
 
-</v-click>
+</div>
+<div class="bg-gray-800 rounded p-2">
+
+**④ Validate**  
+ERA SHACL shapes checked locally before upload. Violations caught early.
+
+</div>
+</div>
+
+<div class="mt-3 p-2 bg-gray-800 rounded text-xs">
+
+📦 Repository: <a href="https://github.com/Matdata-eu/raillML-to-ERA">github.com/Matdata-eu/raillML-to-ERA</a> · Built around the <strong>railML® advanced example v14</strong>
+
 </div>
 
 <!--
-The Norway case study is a great example because:
-1. They started from scratch — no existing ERA-formatted data
-2. They had good GIS data but needed to convert to ERA topology
-3. The SHACL validation feedback loop was essential
-
-The key message: it took multiple iterations. The first SHACL run produced 2000 violations. That's normal. The validation feedback loop is the mechanism for improvement.
-
-After addressing the systematic issues (coordinate order, SKOS inScheme, validity pattern), the violations dropped dramatically.
+This is a real working pipeline, not pseudocode.
+SPARQL Anything removes the need for any custom XML parser — the railML is queried directly as RDF using the facade-x extension.
+CONSTRUCT queries are the heart of the mapping — each infrastructure element type has its own .rq file.
+Post-processing handles two things: WKT geometry from topology (Shapely), and hasPart/isPartOf inference.
+Local SHACL validation before upload saves a lot of round trips with the ERA portal.
 -->
 
 ---
@@ -2383,8 +2403,7 @@ layout: default
 
 ```mermaid
 flowchart LR
-    A["📤 Upload<br/>.ttl or .nt file"] --> B["🔄 Transform<br/>Format normalisation"]
-    B --> C["✅ SHACL<br/>Validation"]
+    A["📤 Upload<br/>.ttl or .nt file"] --> C["✅ SHACL<br/>Validation"]
     C --> D["🧠 KG<br/>Generation"]
     D --> E["🌐 Publication<br/>Public endpoint"]
 
@@ -2433,10 +2452,13 @@ The validation report shows each violation with: the resource URI, the property,
 -->
 
 ---
-layout: two-cols
+layout: two-cols-header
+gap: 2
 ---
 
 # 📤 Full vs Partial Upload
+
+::left::
 
 ### Full Upload 🔄
 
@@ -2447,11 +2469,13 @@ Replaces your entire dataset.
 - Major restructuring
 - Version upgrade (v3.0 → v3.1)
 
-**Steps:**
-1. Generate full RDF graph
-2. Validate locally with SHACL
-3. Upload file → pipeline runs
-4. Review validation report
+<v-click>
+<div class="bg-yellow-900 rounded p-2 mt-4 text-sm col-span-2">
+
+⚠️ **Referential integrity**: a partial upload referencing an `era:OperationalPoint` must either include that OP or have it already in the published dataset.
+
+</div>
+</v-click>
 
 ::right::
 
@@ -2464,20 +2488,16 @@ Merged into existing dataset.
 - New tracks or OPs added
 - Property corrections
 
-**Steps:**
-1. Generate changed elements only
-2. Validate locally
-3. Upload delta file
-4. Monitor pipeline
+<div class="text-xs">
 
-<v-click>
-<div class="bg-yellow-900 rounded p-2 mt-4 text-sm col-span-2">
+**Format:** a ZIP file containing:
 
-⚠️ **Referential integrity**: a partial upload referencing an `era:OperationalPoint`  
-must either include that OP or have it already in the published dataset.
+| File | Purpose |
+|---|---|
+| `INSERT.nt` | Triples to **add** |
+| `DELETE.nt` | Triples to **remove** |
 
 </div>
-</v-click>
 
 <!--
 The partial upload is powerful but requires care around referential integrity.
@@ -2489,11 +2509,12 @@ Practical tip: for regular incremental updates, maintain a version control syste
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 📄 Reference Documents
 
-ERA properties can reference `era:Document` instances:
+Linking documents to infrastructure elements (`era:Document`)
 
 <v-clicks>
 
@@ -2507,14 +2528,25 @@ ERA properties can reference `era:Document` instances:
 <v-click>
 
 ```turtle
-<_:TUN001> a era:Tunnel ;
-    era:document <era:documents/a22e9fb...> .
-
-<era:documents/a22e9fb...> a era:Document ;
-    foaf:name "emergency-plan.pdf"^^xsd:string ;
+<era:documents/a22e9fbd9a969ca6e2cbb4b7093d3b4583c57344>
+    a era:Document ;
+    foaf:name "emergency_plan.pdf"^^xsd:string ;
     era:documentUrl
-      "https://ld4rail.../documents/a22e9fb.../download"
-      ^^xsd:anyURI .
+      "https://ld4rail.../documents/a22e.../download"
+      ^^xsd:anyURI ;
+    dcterms:language "en".
+
+<era:documents/b344e533ecbb4322367dde627093d3b4583c57344>
+    a era:Document ;
+    foaf:name "emergency_plan.pdf"^^xsd:string ;
+    era:documentUrl
+      "https://ld4rail.../documents/b33f.../download"
+      ^^xsd:anyURI ;
+    dcterms:language "fr".
+
+<_:TUN001>
+    era:document
+      <era:documents/a22e9fbd9a969...>, <era:documents/b344e533ecbb43...> .
 ```
 
 </v-click>
@@ -2526,11 +2558,10 @@ ERA properties can reference `era:Document` instances:
 
 **Workflow to link a document:**
 
-1. Go to *Reference Documents Management* in Dataset Manager
-2. Upload your file
-3. Note the 40-character hex ID returned
-4. Construct the URI: `http://data.europa.eu/949/documents/{id}`
-5. Use it in your RDF
+1. Upload file in Dataset Manager → _Reference Documents Management_
+2. Query the Reference Documents API → get an `id` — a 40-char hex string
+3. Construct the URI: `http://data.europa.eu/949/documents/{id}`
+4. Use that URI in your Turtle
 
 </v-click>
 
@@ -2538,7 +2569,7 @@ ERA properties can reference `era:Document` instances:
 <div class="p-2 bg-blue-900 rounded mt-2 text-xs">
 
 💡 **2 languages required!**  
-Recommended: 1 `era:Document` with 2 `era:documentUrl` values (one per language)
+Recommended: 2 `era:Document` with each 1 `era:documentUrl` (one per language file) and a `dcterms:language` property.
 
 </div>
 </v-click>
@@ -2623,6 +2654,7 @@ Split: 25 min SHACL theory + error types, 35 min tools and hands-on.
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🔍 What is SHACL?
@@ -2865,6 +2897,7 @@ Fix #5: Check SHACL shapes for other properties that also require xsd:integer �
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🛠️ SHACL Validation Tools
@@ -3033,12 +3066,195 @@ Common observation: different SHACL validators can produce slightly different re
 layout: section
 ---
 
+# �️ Useful Techniques
+
+### Reference for your own implementation
+
+<div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
+  ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · <span class="font-semibold text-white">⑧ Techniques</span> · ⑨ Access · ⑩ Q&A
+</div>
+
+<!--
+Brief section — not all topics need a full walkthrough. Point participants to the getting-started guide for details.
+-->
+
+---
+layout: default
+---
+
+# 🔍 Querying & Exploring Your Graph
+
+Before submitting, inspect your generated RDF locally.
+
+<div class="grid grid-cols-3 gap-3 mt-4 text-sm">
+<div class="bg-gray-800 rounded p-3">
+
+**Apache Jena Fuseki**
+
+Local SPARQL server — load your `.ttl`, query via web UI or HTTP.
+
+```bash
+fuseki-server --update --mem /mydata
+
+curl -X POST localhost:3030/mydata/data \
+  -H "Content-Type: text/turtle" \
+  --data-binary @era-graph.ttl
+```
+
+Web UI at `http://localhost:3030/`
+
+</div>
+<div class="bg-gray-800 rounded p-3">
+
+**YasGUI**
+
+Web SPARQL editor with autocompletion and result visualisation.
+
+Point at your local Fuseki or the ERA public endpoint.
+
+🔗 https://yasgui.matdata.eu/
+
+</div>
+<div class="bg-gray-800 rounded p-3">
+
+**SPARQL Notebook**
+
+VS Code extension — write and execute SPARQL queries inline in a notebook. Great for iterative development and debugging.
+
+🔗 _Zazuko SPARQL Notebook_
+
+</div>
+</div>
+
+<!--
+Fuseki is the workhorse. Everyone should have it running locally by the end of the workshop.
+YasGUI is browser-based — no install needed.
+SPARQL Notebook is the most ergonomic if you're already in VS Code.
+-->
+
+---
+layout: default
+---
+
+# 🌐 Creating ERA Topology from GIS Geometry
+
+If you have track **GIS geometry** (LineStrings) but no topology, you can generate it programmatically.
+
+<div class="grid grid-cols-2 gap-4 mt-3 text-sm">
+<div>
+
+**Three-phase approach:**
+
+1. **Filter & clip** — bounding box filter, GIS → RDF LINESTRING triples
+2. **Detect intersections & split** — T-intersections, X-crossings; splits at switches and junctions
+3. **Build ERA topology** — each segment → `era:LinearElement`; endpoint clusters → `era:NetRelation`
+
+**Navigability** is derived from azimuth at endpoints:
+
+| Node degree | Pattern |
+|---|---|
+| 2 — simple join | 1 relation, `Both` |
+| 3 — switch/turnout | 3 relations (all pairs) |
+| 4 — diamond crossing | 4 relations (straight-through pairs) |
+
+</div>
+<div>
+
+```turtle
+<_:netElement_seg_123> a era:LinearElement ;
+    era:lengthOfNetLinearElement 247.512 ;
+    gsp:hasGeometry [
+        a gsp:Geometry ;
+        gsp:asWKT "LINESTRING (4.482 50.882, ...)"
+                  ^^gsp:wktLiteral
+    ] .
+```
+
+> ⚠️ Watch out for **Z-coordinates**: crossing tracks on different vertical levels (tunnels, bridges) must **not** be split at apparent XY intersections.
+
+Demo script: `scripts/generate_topology_from_gis.py` in the railML-to-ERA repo.
+
+</div>
+</div>
+
+<!--
+This is highly relevant for IMs who have GIS data but no RDF topology yet.
+The phase 2 split loop needs 1–2 passes to converge.
+The Z-coordinate caveat is a common source of spurious splits — bridges over tunnels look like intersections in 2D.
+-->
+
+---
+layout: default
+---
+
+# 🗂️ URI Minting & Format Conversion
+
+<div class="grid grid-cols-2 gap-4 mt-3 text-sm">
+<div>
+
+**URI pattern** (from the guide):
+
+```
+https://{domain}/{collection}_{localId}
+```
+
+- `collection` = plural noun + underscore: `_tunnels_`, `_signals_`, `_netElements_`
+- `localId` = source system ID, stripped of spaces and special chars
+- No country codes in collection names
+- Blank nodes only in CONSTRUCT intermediates — **not** in submitted data
+
+```turtle
+# ✅ correct
+<https://data.example.eu/_tunnels_TUN001>
+    a era:Tunnel .
+
+# ❌ avoid
+_:TUN001 a era:Tunnel .
+```
+
+</div>
+<div>
+
+**Format conversion** — convert between serializations with Apache Jena `riot`:
+
+```bash
+# Turtle → N-Triples (faster upload for large files)
+riot --output=NT era-graph.ttl > era-graph.nt
+
+# N-Triples → Turtle (for readability)
+riot --output=Turtle era-graph.nt > era-graph.ttl
+
+# Validate syntax only
+riot --validate era-graph.ttl
+```
+
+Or with Python `rdflib`:
+
+```python
+from rdflib import Graph
+g = Graph().parse("era-graph.ttl")
+g.serialize("era-graph.nt", format="nt")
+```
+
+</div>
+</div>
+
+<!--
+URI minting is one of the most common sources of errors — providers often reuse internal IDs that contain spaces, slashes, or non-ASCII characters.
+The riot tool is fast and catches syntax errors before you hit the portal.
+ZIP upload is supported for large NT files.
+-->
+
+---
+layout: section
+---
+
 # 🔑 Getting Access, Help & Reporting Issues
 
 ### 16:00 – 16:30
 
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
-  ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · <span class="font-semibold text-white">⑧ Access</span> · ⑨ Q&A
+  ① Welcome · ② Ecosystem · ③ Portal · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · ⑧ Techniques · <span class="font-semibold text-white">⑨ Access</span> · ⑩ Q&A
 </div>
 
 <!--
@@ -3048,6 +3264,7 @@ Split: 10 min access setup, 20 min GitLab + support channels.
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🔐 Getting Access
@@ -3109,6 +3326,7 @@ The UAT environment is specifically for testing and training. It's safe to uploa
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🐛 Reporting Issues — GitLab
@@ -3387,6 +3605,7 @@ If participants only remember 3 things:
 
 ---
 layout: two-cols
+gap: 2
 ---
 
 # 🚀 Next Steps
@@ -3440,7 +3659,7 @@ class: text-center
 ---
 
 <div class="flex justify-center mb-6">
-  <img src="/assets/European_Union_Agency_for_Railways_logo.svg" class="h-16" />
+  <img src="./assets/European_Union_Agency_for_Railways_logo.svg" class="h-16" />
 </div>
 
 # Thank You! 🙏
