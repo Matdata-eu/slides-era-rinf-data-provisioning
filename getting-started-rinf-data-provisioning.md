@@ -97,6 +97,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
       - [Border Points](#border-points)
       - [Documents](#documents)
       - [Topology and `era:hasPart`](#topology-and-erahaspart)
+      - [`era:connectedTo`](#eraconnectedto)
   - [Useful Techniques](#useful-techniques)
     - [Querying Your Graph](#querying-your-graph)
       - [SPARQL Notebooks](#sparql-notebooks)
@@ -120,7 +121,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
     - [Promoting Classes Linked to Tracks to Infrastructure Element Status](#promoting-classes-linked-to-tracks-to-infrastructure-element-status)
     - [`era:CommonCharacteristicsSubset`: An Anti-Pattern to Avoid](#eracommoncharacteristicssubset-an-anti-pattern-to-avoid)
     - [Putting the Data Transformation Workload on the Provider, ERA, or Consumer?](#putting-the-data-transformation-workload-on-the-provider-era-or-consumer)
-    - [`era:connectedTo`](#eraconnectedto)
+    - [`era:connectedTo`](#eraconnectedto-1)
     - [LinesideDistanceIndication Property Naming](#linesidedistanceindication-property-naming)
     - [Open World vs Closed World](#open-world-vs-closed-world)
     - [RDF in Transactional Systems](#rdf-in-transactional-systems)
@@ -1050,7 +1051,7 @@ Tracks also link to functional resources (see [Functional Resources](#functional
     era:hasWalkway true ;
     era:nationalRollingStockFireCategory "A" ;
     era:rollingStockFireCategory <http://data.europa.eu/949/concepts/rolling-stock-fire/10> ;
-    era:document <https://data.example.eu/_documents_tunnel_emergency_plan> .
+    era:tunnelDocRef <https://data.example.eu/_documents_tunnel_emergency_plan> .
 
 <https://data.example.eu/_documents_tunnel_emergency_plan> a era:Document ;
     era:documentUrl "https://data.example.eu/docs/tunnel-emergency-plan.pdf"^^xsd:anyURI .
@@ -1115,7 +1116,9 @@ Kilometer posts mark positions on the linear referencing system:
 ```turtle
 <https://data.example.eu/_kmPost_LPS01_km125> a era:KilometricPost ;
     era:hasLRS <https://data.example.eu/_lps_01> ;
-    era:kilometer 125.0 ;
+    era:kilometer 125.0 ;                                        # km value (xsd:double)
+    era:kmPostName "1 bis" ;                                    # human-readable name (optional, maxCount=1)
+    era:measuredDistance 125000.0 ;                              # cumulative measured distance in metres (optional)
     era:netReference <https://data.example.eu/_netPointRef_KM125> .
 ```
 
@@ -1643,6 +1646,33 @@ The inference uses two patterns:
 2. **Extent-overlap**: a linear element (e.g., Track) overlaps with an aggregate element (e.g., OperationalPoint) if their effective windows on a shared LinearElement intersect
 
 The method to apply this is described in [era-topology-relations](#era-topology-relations).
+
+#### `era:connectedTo`
+
+`era:connectedTo` is an `owl:ObjectProperty` with domain and range `era:Track` (which is the common superclass of `era:RunningTrack` and `era:Siding`). It is declared both `owl:SymmetricProperty` and `owl:IrreflexiveProperty`, and corresponds to RINF parameter **1.2.4.1 Internal connection**.
+
+> _"Represents a bidirectional connection between two Track instances."_
+
+The property is used to indicate that two tracks within (or at the boundary of) an operational point are **somehow** physically connected **and** a train can move from one to the other through switches without changing direction. Because it is symmetric, stating `A era:connectedTo B` implies `B era:connectedTo A`.
+
+The property only captures connectivity in the *normal running direction* of the track. This means that connections that exist only in the *opposite* direction are invisible. Consider the following operational point with two tracks:
+
+![Connected-to-example](./assets/connected-to.svg)
+
+```turtle
+_trackLine1 era:connectedTo _trackA
+_trackLine1 era:connectedTo _trackB
+_trackLine1 era:connectedTo _trackC
+
+_trackA era:connectedTo _trackLine2
+_trackB era:connectedTo _trackLine2
+```
+
+> **Note**: _trackA, _trackB and _trackC are **not** connected to each other. Also note that the connection between _switch1 and _switch3 is unnamed. In the absence of microtopology and without explicitly declaring this as a era:Track, this connection would not exist in RINF.
+
+**How to populate `era:connectedTo`**
+
+The most reliable source is the topology layer: two tracks are connected when they have a topological connection with `NetRelation`-connected `LinearElement`s. A post-processing SPARQL UPDATE query can infer and assert `era:connectedTo` from these topological proximity relations rather than requiring manual enumeration.
 
 ---
 
