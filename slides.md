@@ -700,8 +700,6 @@ layout: two-cols
 <v-clicks>
 
 1. **📖 Data Stories**
-   - Real use cases and best practices
-   - Examples from other submissions
 
 2. **🧬 Vocabulary / Ontology**
    - ERA RINF ontology structure
@@ -713,7 +711,6 @@ layout: two-cols
 
 4. **🗂️ GraphDB**
    - [graph.data.era.europa.eu](https://graph.data.era.europa.eu/) — Visual Graph, SPARQL, repository browser
-   - Explore ontology, SKOS concept schemes, and RINF datasets visually
 
 </v-clicks>
 
