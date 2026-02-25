@@ -232,8 +232,8 @@ layout: two-cols
 <v-click>
 
 > 🗓️ **Deadline: 31 March 2026**  
-> All data providers must submit RINF data  
-> in RDF format (ontology v3.1)
+> All data providers must submit RINF data
+> in RDF format (ontology v3.1) for routebook parameters
 
 </v-click>
 </div>
@@ -276,7 +276,7 @@ gantt
 
 > 🗓️ **Deadline: 31 March 2026**  
 > All data providers must submit RINF data  
-> in RDF format (ontology v3.1)
+> in RDF format (ontology v3.1) for routebook parameters
 
 </v-click>
 <!--
@@ -3694,7 +3694,7 @@ layout: default
 
 <v-clicks>
 
-1. 📜 **Legal mandate** — RINF RDF v3.1 submission required by 31 March 2026
+1. 📜 **Legal mandate** — RINF RDF v3.1 submission of routebook parameters required by 31 March 2026
 
 2. 🔗 **RDF is the right choice** — graph model fits railway networks naturally; IRIs enable federated data
 
