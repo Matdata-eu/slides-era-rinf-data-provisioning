@@ -1019,11 +1019,11 @@ graph LR
 # NE002 end ──── NE003 start
 <_:NR002> a era:NetRelation ;
     era:elementA <_:NE002> ;
-    era:isOnOriginOfElementA false ;
+    era:isOnOriginOfElementA true ;
     era:elementB <_:NE003> ;
     era:isOnOriginOfElementB true ;
     era:navigability
-        <era:concepts/navigabilities/Both> .
+        <era:concepts/navigabilities/None> .
 
 # NE001 end ──── NE003 start  (junction/branch)
 <_:NR003> a era:NetRelation ;
