@@ -885,7 +885,7 @@ The key rule: infrastructureManager on tracks/OPs/etc points to the Organisation
 layout: default
 ---
 
-# �️ Topology: LinearElements
+# 🔗 Topology: LinearElements
 
 **LinearElements** are the atoms of the network topology — each represents a track segment between two connection points (switches, buffer stops, etc.). They have an origin and an end. They are directed.
 
@@ -917,7 +917,7 @@ gsp:hasGeometry can only appear ones and should be WGS84, longitude first.
 layout: default
 ---
 
-# �️ Topology: LinearElements with multiple geometries
+# 🔗 Topology: LinearElements with multiple geometries
 
 But what about schematic coordinates? A schematic visualisation? 
 
@@ -1902,7 +1902,7 @@ Best practice: use a SPARQL UPDATE post-processing step to add validity to all e
 layout: default
 ---
 
-# � Train Detection System (TDS)
+# 🔍 Train Detection System (TDS)
 
 `era:TrainDetectionSystem` — linked FROM track via `era:trainDetectionSystem`
 
@@ -2141,7 +2141,7 @@ Frequency is the spacing in metres between individual distance markers.
 layout: default
 ---
 
-# � Border Points
+# 🚩 Border Points
 
 `era:OperationalPoint` with `era:opType` = `op-types/90`
 
@@ -3199,7 +3199,7 @@ Common observation: different SHACL validators can produce slightly different re
 layout: section
 ---
 
-# �️ Useful Techniques
+# 🛠️ Useful Techniques
 
 ### Reference for your own implementation
 
@@ -3684,7 +3684,7 @@ Encourage attendees to bookmark all three and check before each submission cycle
 layout: default
 ---
 
-# �📞 Support Channels
+# � Support Channels
 
 <div class="grid grid-cols-3 gap-4 mt-4">
 <div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-4">
