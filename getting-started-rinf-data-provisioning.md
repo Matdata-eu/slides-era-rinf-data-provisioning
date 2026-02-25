@@ -370,6 +370,19 @@ Use this to:
 
 > **Tip**: use a custom [Yasgui](https://yasgui.matdata.eu/) instead of the ERA provided interface to optimize your experience.
 
+### GraphDB — Visual Graph Explorer
+
+**[https://graph.data.era.europa.eu/](https://graph.data.era.europa.eu/)**
+
+ERA hosts a public GraphDB instance that gives you a browser-based interface to explore the ontology, SKOS concept schemes, and the full RINF datasets:
+
+- **Visual Graph**: click through the ERA ontology structure — classes, properties, and their relationships — without writing SPARQL
+- **SPARQL editor**: run SPARQL queries directly in the browser with syntax highlighting and result downloads
+- **Repository browser**: browse named graphs (ontology, concept schemes, national RINF datasets) side by side
+- **Explore SKOS**: navigate controlled vocabularies (e.g. `op-types`, `platform-heights`, `signal-types`) as concept hierarchies
+
+This is the recommended starting point for participants who want to understand the ERA data model visually before writing their first CONSTRUCT query.
+
 ### RINF Working Group (SharePoint)
 
 ERA runs a RINF implementation network for data providers. The SharePoint site is the primary collaboration space for national infrastructure managers participating in RINF data provisioning:

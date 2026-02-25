@@ -710,7 +710,11 @@ layout: two-cols
 3. **⚡ SPARQL Endpoint**
    - Direct query access
    - 💡 Use [Yasgui](https://yasgui.matdata.eu/) for better UX
-  
+
+4. **🗂️ GraphDB**
+   - [graph.data.era.europa.eu](https://graph.data.era.europa.eu/) — Visual Graph, SPARQL, repository browser
+   - Explore ontology, SKOS concept schemes, and RINF datasets visually
+
 </v-clicks>
 
 ::right::
@@ -737,6 +741,7 @@ layout: two-cols
 | ERA GitLab | [era-ontology](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology) |
 | UAT Environment | [uat.ld4rail...](https://uat.ld4rail.fpfis.tech.ec.europa.eu/) |
 | User Manual | [RINF User Manual](https://data-interop.era.europa.eu/RINF-User%20Manual%20v2.0.pdf) |
+| GraphDB | [graph.data.era.europa.eu](https://graph.data.era.europa.eu/) |
 
 </div>
 
