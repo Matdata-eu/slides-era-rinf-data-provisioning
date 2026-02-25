@@ -2153,7 +2153,9 @@ layout: default
 1. **UOPID prefix** starts with `EU` — not a country code  
    (e.g. `EUBP1`, not `DEBP1`)
 
-2. Must have an associated `era:ReferenceBorderPoint` resource with a matching `era:borderPointId`
+2. `era:referenceBorderPoint` must point to an **ERA-managed** URI:  
+   `http://data.europa.eu/949/referenceBorderPoints/{UOPID}`  
+   Do **not** define this resource locally in your dataset.
 
 3. Geometry is **inherited** from the parent OperationalPoint via post-processing
 
@@ -2171,13 +2173,12 @@ layout: default
     era:inCountry country:DEU ;
     era:infrastructureManager <_:0080_IM> ;
     era:netReference <_:NPR_BP001> ;
-    era:referenceBorderPoint <_:RBP001> .
-
-<_:RBP001> a era:ReferenceBorderPoint ;
-    era:borderPointId "EUBP1" .
+    era:referenceBorderPoint
+      <http://data.europa.eu/949/referenceBorderPoints/EUBP1> .
+# ↑ ERA-managed URI — do NOT define this resource yourself
 ```
 
-> The `borderPointId` must match the `uopid` of the OperationalPoint.
+> **Alternatively**: look up the matching `era:ReferenceBorderPoint` via a federated SPARQL query in your post-process  to the ERA endpoint, matching by geometry with a tolerance margin.
 
 </div>
 </div>
@@ -2185,7 +2186,12 @@ layout: default
 <!--
 Border points are a special subtype of OperationalPoint.
 The EU prefix on the UOPID signals that the point is administered at EU level, not nationally.
-The ReferenceBorderPoint is a separate resource — don't omit it.
+The ReferenceBorderPoint is an ERA-managed resource — do NOT define it locally. Its URI is constructed as:
+  http://data.europa.eu/949/referenceBorderPoints/{UOPID}
+
+Alternatively, if the UOPID is not known in advance, a SPARQL CONSTRUCT query can use a SERVICE block to query the ERA endpoint:
+  https://data-interop.era.europa.eu/api/sparql
+and match by geometry (GeoSPARQL, with a tolerance margin) to find the correct ReferenceBorderPoint URI.
 The CSV on the ERA RINF website is the authoritative list of current border points.
 -->
 

@@ -1649,17 +1649,40 @@ Operational points of type "border point" (SKOS concept `op-types/90`) have spec
 
 1. **UOPID prefix**: border point UOPIDs start with `EU` (not a country code). For example: `EUABC` instead of `DEABC`.
 
-2. **ReferenceBorderPoint**: border points also need a `era:ReferenceBorderPoint` resource:
+2. **ReferenceBorderPoint**: `era:referenceBorderPoint` must point to an **ERA-managed URI** — do **not** define this resource locally in your dataset. The URI is constructed from the UOPID:
 
-```turtle
-<https://data.example.eu/_operationalPoints_BP001> a era:OperationalPoint ;
-    era:opType <http://data.europa.eu/949/concepts/op-types/90> ;
-    era:uopid "EUBP1" ;
-    era:referenceBorderPoint <https://data.example.eu/_borderpoints_BP001> .
+   ```
+   http://data.europa.eu/949/referenceBorderPoints/{UOPID}
+   ```
 
-<https://data.example.eu/_borderpoints_BP001> a era:ReferenceBorderPoint ;
-    era:borderPointId "EUBP1" .
-```
+   Example:
+
+   ```turtle
+   <https://data.example.eu/_operationalPoints_BP001> a era:OperationalPoint ;
+       era:opType <http://data.europa.eu/949/concepts/op-types/90> ;
+       era:uopid "EUBP1" ;
+       era:referenceBorderPoint
+         <http://data.europa.eu/949/referenceBorderPoints/EUBP1> .
+   # ↑ ERA-managed URI — do NOT define this resource in your own dataset
+   ```
+
+   > **Important:** The `era:ReferenceBorderPoint` resource at `http://data.europa.eu/949/referenceBorderPoints/EUBP1` is defined and maintained by ERA. Your dataset only needs to reference it; do not replicate or redefine it.
+
+   **Alternative — federated SPARQL lookup by geometry:**  
+   If the UOPID is not reliably known, a SPARQL CONSTRUCT query can resolve the correct `era:ReferenceBorderPoint` URI via a `SERVICE` call to the ERA SPARQL endpoint (`https://data-interop.era.europa.eu/api/sparql`), matching by GeoSPARQL geometry with a tolerance margin:
+
+   ```sparql
+   PREFIX gsp: <http://www.opengis.net/ont/geosparql#>
+   PREFIX era: <http://data.europa.eu/949/>
+
+   SELECT *
+   WHERE {
+     ?rbp a era:ReferenceBorderPoint ;
+          gsp:hasGeometry/gsp:asWKT ?wkt .
+   }
+   ```
+
+   Then match the returned geometries against your operational point geometry using a tolerance margin to identify the correct ERA URI to link to.
 
 3. **Geometry inheritance**: border points inherit geometry from their parent operational point via post-processing.
 
