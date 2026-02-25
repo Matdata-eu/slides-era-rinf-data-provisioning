@@ -3535,7 +3535,78 @@ Labels help ERA triage:
 layout: default
 ---
 
-# 📞 Support Channels
+# � Tracking Ontology Changes
+
+<div class="grid grid-cols-3 gap-4 mt-4 text-sm">
+
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-4">
+
+### 📄 CHANGELOG.md
+
+The ERA ontology repository maintains a machine-readable changelog:
+
+**[CHANGELOG.md on GitLab](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology/-/blob/main/CHANGELOG.md)**
+
+Lists every version with:
+- New classes / properties
+- Deprecated terms
+- Breaking changes
+- Bug fixes
+
+</div>
+
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-4">
+
+### 📖 Application Guide
+
+The Application Guide has a dedicated **Revision History** section:
+
+**[rinf-appGuide/#revisionSection](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/#revisionSection)**
+
+Provides human-readable explanations of:
+- What changed and why
+- Impact on data providers
+- Migration guidance between versions
+
+</div>
+
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-4">
+
+### 🔀 Git diff
+
+Compare any two versions directly on GitLab using **Compare** or the **Tags** view:
+
+1. Go to the repository
+2. Select **Repository → Compare**
+3. Set `from` = previous tag, `to` = current tag
+4. Browse changed `.ttl` files
+
+Or locally:
+```bash
+git diff v3.0..v3.1 -- *.ttl
+```
+
+</div>
+</div>
+
+> 💡 **Tip:** Subscribe to GitLab notifications on the ontology repository to receive an email whenever a new release is tagged.
+
+<!--
+Data providers often miss ontology changes between submissions because they don't know where to look.
+
+Three complementary views:
+1. CHANGELOG.md — quick machine-readable summary per version. Good for scripting or CI checks.
+2. Application Guide revision section — human-readable with rationale. Best for understanding the "why".
+3. Git diff — shows the exact triple-level changes. Useful for understanding what your pipeline needs to be updated to handle.
+
+Encourage attendees to bookmark all three and check before each submission cycle.
+-->
+
+---
+layout: default
+---
+
+# �📞 Support Channels
 
 <div class="grid grid-cols-3 gap-4 mt-4">
 <div class="bg-gray-800 rounded p-4">

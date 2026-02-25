@@ -310,6 +310,24 @@ The ERA ontology, SHACL shapes, and controlled vocabularies are maintained in a 
 - **SHACL shapes**: `era-shacl/ERA-RINF-shapes.ttl`: validation constraints for RINF data
 - **SKOS concept schemes**: controlled vocabularies for enumerations (signal types, electrification systems, etc.)
 
+#### Tracking Ontology Changes
+
+Keep track of what changed between ontology versions using these three complementary resources:
+
+1. **CHANGELOG.md** — The ontology repository maintains a version-by-version changelog listing new classes and properties, deprecated terms, breaking changes, and bug fixes:
+   [CHANGELOG.md on GitLab](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology/-/blob/main/CHANGELOG.md)
+
+2. **Application Guide — Revision History** — Human-readable descriptions of what changed and why, including impact on data providers and migration guidance between versions:
+   [rinf-appGuide/#revisionSection](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/#revisionSection)
+
+3. **Git diff** — Compare any two ontology versions directly on GitLab (**Repository → Compare**), or locally:
+   ```bash
+   git diff v3.0..v3.1 -- *.ttl
+   ```
+   This shows the exact triple-level changes: which classes/properties were added, renamed, or removed.
+
+> **Tip:** Subscribe to GitLab notifications on the ontology repository to receive an email whenever a new release is tagged — so you are notified as soon as a new version is published.
+
 ### Dataset Manager
 
 The ERA Dataset Manager is the submission portal for infrastructure data.
