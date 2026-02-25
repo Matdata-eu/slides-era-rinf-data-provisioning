@@ -308,10 +308,10 @@ graph LR
 ```
 
 <ul class="mt-4 text-sm text-left space-y-2">
-<li v-click><div class="bg-blue-900 rounded p-2"><strong>🔑 IRIs</strong> — Dereferencable globally unique identifiers. No more local IDs that clash across systems.</div></li>
-<li v-click><div class="bg-green-900 rounded p-2"><strong>🔗 RDF</strong> — Subject–predicate–object triples. Graph, not hierarchy.</div></li>
-<li v-click><div class="bg-orange-900 rounded p-2"><strong>📚 OWL Ontology</strong> — Classes, properties, semantics. Machine-readable meaning.</div></li>
-<li v-click><div class="bg-pink-900 rounded p-2"><strong>✅ SHACL</strong> — Validation constraints. Compliance is machine-verifiable. Also useful for building UIs and search engines.</div></li>
+<li v-click><div class="bg-blue-50 dark:bg-blue-900 text-gray-800 dark:text-gray-100 rounded p-2"><strong>🔑 IRIs</strong> — Dereferencable globally unique identifiers. No more local IDs that clash across systems.</div></li>
+<li v-click><div class="bg-green-50 dark:bg-green-900 text-gray-800 dark:text-gray-100 rounded p-2"><strong>🔗 RDF</strong> — Subject–predicate–object triples. Graph, not hierarchy.</div></li>
+<li v-click><div class="bg-orange-50 dark:bg-orange-900 text-gray-800 dark:text-gray-100 rounded p-2"><strong>📚 OWL Ontology</strong> — Classes, properties, semantics. Machine-readable meaning.</div></li>
+<li v-click><div class="bg-pink-50 dark:bg-pink-900 text-gray-800 dark:text-gray-100 rounded p-2"><strong>✅ SHACL</strong> — Validation constraints. Compliance is machine-verifiable. Also useful for building UIs and search engines.</div></li>
 </ul>
 
 <!--
@@ -491,7 +491,7 @@ layout: default
 >
 > https://essentialbalances.com/
 
-<div class="mt-4 p-3 bg-blue-900 rounded text-sm">
+<div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 text-gray-800 dark:text-blue-100 rounded text-sm">
 
 **Answers: Topology + Linked Data**
 
@@ -769,7 +769,7 @@ layout: default
 
 <div class="grid grid-cols-3 gap-4 mt-4 text-sm">
 
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **🏢 Organisation**
 - `era:Body` + `era:OrganisationRole` (v3.1)
@@ -788,7 +788,7 @@ layout: default
 
 </div>
 
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **🏗️ Infrastructure Elements**
 - Overview & base pattern
@@ -801,7 +801,7 @@ layout: default
 
 </div>
 
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **📐 Patterns & Best Practices**
 - Open World Assumption
@@ -852,7 +852,7 @@ The `era:infrastructureManager` property on all infrastructure elements (Tracks,
 
 </div>
 
-<div class="p-2 bg-red-900 rounded text-sm mt-4">
+<div class="p-2 bg-red-50 dark:bg-red-900 text-red-900 dark:text-red-100 rounded text-sm mt-4">
 
 ❌ **Deprecated (v3.0):** `era:InfrastructureManager` + `era:imCode`  
 ✅ **Required (v3.1):** `era:Body` + `era:OrganisationRole`
@@ -961,14 +961,14 @@ layout: default
 ```
 
 <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **`isOnOriginOfElement`**
 - `true` = connects at the **start** of the element
 - `false` = connects at the **end** of the element
 
 </div>
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **`navigability` values**
 - `Both` — bidirectional
@@ -1272,12 +1272,12 @@ LRS coordinates add a **kilometric position** to any topology position. They are
 ```
 
 <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 📖 **Reading:** _"Signal SIG001 is at km 125 + 37.5 m on LPS01"_
 
 </div>
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **`KilometricPost`** is also an `era:InfrastructureElement` — it carries its own `era:netReference` (`NetPointReference`) for precise placement on the topology network.
 
@@ -1300,7 +1300,7 @@ All classes share the same base pattern: `era:inCountry`, `era:infrastructureMan
 
 <div class="grid grid-cols-2 gap-3 mt-3 text-sm">
 
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **📍 Point elements**
 
@@ -1816,7 +1816,7 @@ _:TRK001 era:contactLineSystem [
 ```
 
 <v-click>
-<div class="mt-4 p-3 bg-yellow-900 rounded text-sm">
+<div class="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900 text-gray-800 dark:text-yellow-100 rounded text-sm">
 
 ⚠️ **This applies to ALL boolean-like properties in RINF.**  No emergency exit? State it explicitly. No gradient? State it explicitly.
 Absence only means the data provider hasn't stated it yet.
@@ -1877,7 +1877,7 @@ _:TRK001 era:validity "2025-01-01"^^xsd:date .
 </div>
 
 <v-click>
-<div class="p-3 bg-yellow-900 rounded text-sm mt-2">
+<div class="p-3 bg-yellow-50 dark:bg-yellow-900 text-gray-800 dark:text-yellow-100 rounded text-sm mt-2">
 
 ⚠️ `era:Feature` and `era:TemporalFeature` are declared `owl:disjointWith`.  
 Never type a track/OP as both. The validity is always on a **separate** `time:Interval` resource.
@@ -2397,7 +2397,7 @@ layout: default
 
 </div>
 
-<div class="mt-6 p-3 bg-gray-800 rounded text-sm">
+<div class="mt-6 p-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded text-sm">
 
 **💡 Tools:**
 - Your code editor (VS Code) for syntax highlighting
@@ -2448,25 +2448,25 @@ railML XML  →  [01-prep]        SPARQL Anything  →  one-eyed-graph.ttl
 ```
 
 <div class="grid grid-cols-4 gap-3 mt-4 text-sm">
-<div class="bg-gray-800 rounded p-2">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-2">
 
 **① Prep**  
 SPARQL Anything ingests the XML — no custom parser needed. Output: raw RDF mirroring the railML structure.
 
 </div>
-<div class="bg-gray-800 rounded p-2">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-2">
 
 **② Construct**  
 SPARQL CONSTRUCT queries map railML concepts → ERA ontology classes and properties.
 
 </div>
-<div class="bg-gray-800 rounded p-2">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-2">
 
 **③ Post-process**  
 Shapely interpolates WKT geometries from topological coordinates. Topology relations inferred.
 
 </div>
-<div class="bg-gray-800 rounded p-2">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-2">
 
 **④ Validate**  
 ERA SHACL shapes checked locally before upload. Violations caught early.
@@ -2474,7 +2474,7 @@ ERA SHACL shapes checked locally before upload. Violations caught early.
 </div>
 </div>
 
-<div class="mt-3 p-2 bg-gray-800 rounded text-xs">
+<div class="mt-3 p-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded text-xs">
 
 📦 Repository: <a href="https://github.com/Matdata-eu/raillML-to-ERA">github.com/Matdata-eu/raillML-to-ERA</a> · Built around the <strong>railML® advanced example v14</strong>
 
@@ -2524,7 +2524,7 @@ flowchart LR
 ```
 
 <div class="grid grid-cols-3 gap-3 mt-4 text-sm">
-<div class="bg-gray-800 rounded p-2">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-2">
 
 **Upload**
 - Turtle (`.ttl`) or N-Triples (`.nt`)
@@ -2532,7 +2532,7 @@ flowchart LR
 - ZIP supported for large files
 
 </div>
-<div class="bg-gray-800 rounded p-2">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-2">
 
 **Validation**
 - ERA RINF SHACL shapes
@@ -2540,7 +2540,7 @@ flowchart LR
 - Report downloadable
 
 </div>
-<div class="bg-gray-800 rounded p-2">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-2">
 
 **Publication**
 - SPARQL endpoint updated
@@ -2576,7 +2576,7 @@ Replaces your entire dataset.
 - Version upgrade (v3.0 → v3.1)
 
 <v-click>
-<div class="bg-yellow-900 rounded p-2 mt-4 text-sm col-span-2">
+<div class="bg-yellow-50 dark:bg-yellow-900 text-gray-800 dark:text-yellow-100 rounded p-2 mt-4 text-sm col-span-2">
 
 ⚠️ **Referential integrity**: a partial upload referencing an `era:OperationalPoint` must either include that OP or have it already in the published dataset.
 
@@ -2663,7 +2663,7 @@ Linking documents to infrastructure elements (`era:Document`)
 </v-click>
 
 <v-click>
-<div class="p-2 bg-blue-900 rounded mt-2 text-xs">
+<div class="p-2 bg-blue-50 dark:bg-blue-900 text-gray-800 dark:text-blue-100 rounded mt-2 text-xs">
 
 💡 **2 languages required!**  
 Recommended: 2 `era:Document` with each 1 `era:documentUrl` (one per language file) and a `dcterms:language` property.
@@ -2707,7 +2707,7 @@ layout: default
 
 </div>
 
-<div class="mt-4 p-3 bg-gray-800 rounded text-sm">
+<div class="mt-4 p-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded text-sm">
 
 **💡 Help:**  
 Credentials not working? 👉 Contact servicedesk@era.europa.eu  
@@ -3050,7 +3050,7 @@ layout: default
 </v-clicks>
 
 <v-click>
-<div class="p-3 bg-yellow-900 rounded mt-4 text-sm">
+<div class="p-3 bg-yellow-50 dark:bg-yellow-900 text-gray-800 dark:text-yellow-100 rounded mt-4 text-sm">
 
 📁 Shape fixes are in `04-validate/shape-fixes/` in the example repository.  
 Apply as SPARQL UPDATE against the shapes graph **before** running validation.
@@ -3102,7 +3102,7 @@ layout: default
 </div>
 </div>
 
-<div class="mt-4 p-3 bg-gray-800 rounded text-sm">
+<div class="mt-4 p-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded text-sm">
 
 💡 **Bonus:** Compare local validation results in pySHACL and maplib or another validator.
 Are there differences? 
@@ -3142,7 +3142,7 @@ layout: default
 Before submitting, inspect your generated RDF locally.
 
 <div class="grid grid-cols-3 gap-3 mt-4 text-sm">
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **Apache Jena Fuseki**
 
@@ -3159,7 +3159,7 @@ curl -X POST localhost:3030/mydata/data \
 Web UI at `http://localhost:3030/`
 
 </div>
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **YasGUI**
 
@@ -3170,7 +3170,7 @@ Point at your local Fuseki or the ERA public endpoint.
 🔗 https://yasgui.matdata.eu/
 
 </div>
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **SPARQL Notebook**
 
@@ -3366,7 +3366,7 @@ layout: default
 This repository ships **GitHub Copilot skills** — domain-specific instruction files that teach an AI agent (or a human...) how to work with ERA data. Load them in VS Code Copilot Chat to get expert-level help.
 
 <div class="grid grid-cols-3 gap-3 mt-4 text-sm">
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **Authoring CONSTRUCT queries**
 
@@ -3374,7 +3374,7 @@ This repository ships **GitHub Copilot skills** — domain-specific instruction 
 - `era-construct-workflow` — full workflow for adding new element mappings: planning → implementation → testing
 
 </div>
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **Positioning & topology**
 
@@ -3383,7 +3383,7 @@ This repository ships **GitHub Copilot skills** — domain-specific instruction 
 - `era-wkt-geometry-enrichment` — compute GeoSPARQL WKT geometries by interpolating against LinearElement LINESTRINGs
 
 </div>
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **Resources, URIs & SHACL**
 
@@ -3426,7 +3426,7 @@ layout: two-cols
 
 **Data Provisioning Environment:**
 
-- **Production**: https://ld4rail.fpfis.tech.ec.europa.eu/
+- **Production**: https://data-interop.era.europa.eu/
 - **UAT/Test**: https://uat.ld4rail.fpfis.tech.ec.europa.eu/
 
 <v-clicks>
@@ -3609,7 +3609,7 @@ layout: default
 # �📞 Support Channels
 
 <div class="grid grid-cols-3 gap-4 mt-4">
-<div class="bg-gray-800 rounded p-4">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-4">
 
 ### 🎫 Service Desk
 
@@ -3621,7 +3621,7 @@ Use for:
 - General RINF questions
 
 </div>
-<div class="bg-gray-800 rounded p-4">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-4">
 
 ### 🦊 ERA GitLab
 
@@ -3634,7 +3634,7 @@ Use for:
 - Public discussion
 
 </div>
-<div class="bg-gray-800 rounded p-4">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-4">
 
 ### 📧 RINF Team
 
@@ -3649,7 +3649,7 @@ Use for:
 
 </div>
 
-<div class="mt-4 p-3 bg-blue-900 rounded text-sm">
+<div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 text-gray-800 dark:text-blue-100 rounded text-sm">
 
 📖 **User Manual**: https://data-interop.era.europa.eu/RINF-User%20Manual%20v2.0.pdf  
 🔗 **Application Guide**: https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/  
@@ -3854,19 +3854,19 @@ class: text-center
 ### ERA RINF Data Provisioning Workshop
 
 <div class="grid grid-cols-3 gap-4 mt-8 text-sm">
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **📧 Service Desk**  
 servicedesk@era.europa.eu
 
 </div>
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **🦊 GitLab Issues**  
 era-ontology issues tracker
 
 </div>
-<div class="bg-gray-800 rounded p-3">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **📧 RINF Team**  
 RinfProjectTeam@era.europa.eu
