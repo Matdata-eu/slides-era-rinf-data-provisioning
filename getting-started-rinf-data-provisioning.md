@@ -736,7 +736,7 @@ Organisations are modelled using `era:Body` with a role defined via `era:Organis
 <http://data.europa.eu/949/organisations/0076> a era:Body ;
     era:organisationCode "0076" ;
     era:role <http://data.europa.eu/949/organisations/0076_IM> ;
-    rdfs:label "Bane NOR"@no .
+    rdfs:label "Bane NOR"@no, "Bane NOR"@en .
 
 # The n-ary role relationship
 <http://data.europa.eu/949/organisations/0076_IM> a era:OrganisationRole ;
@@ -771,7 +771,7 @@ A `LinearElement` is the atomic building block of the micro-level topology, typi
 @prefix gsp: <http://www.opengis.net/ont/geosparql#> .
 
 <https://data.example.eu/_netElements_NE001> a era:LinearElement ;
-    rdfs:label "NE001" ;
+    rdfs:label "NE001"@en ;
     era:lengthOfNetLinearElement 523.5 ;
     gsp:hasGeometry [
         a gsp:Geometry ;
@@ -998,6 +998,22 @@ graph BT
     IE["era:InfrastructureElement<br/>era:netReference · era:inCountry<br/>era:infrastructureManager · era:validity"]
 ```
 
+#### Naming: `rdfs:label`
+
+All ERA infrastructure resources should carry an `rdfs:label`. The best practice is to supply **at least two language-tagged strings** with different `@lang` tags, of which **one must be in English** (`@en`). Include the local-language name as the primary entry:
+
+```turtle
+rdfs:label "Hauptbahnhof"@de, "Main Station"@en ;
+```
+
+For internationally-used names (e.g. proper names of organisations that are the same in all languages), repeating the value with both tags is acceptable:
+
+```turtle
+rdfs:label "Bane NOR"@no, "Bane NOR"@en .
+```
+
+For purely technical identifiers (track IDs, network element codes), a single `@en` tag is sufficient.
+
 #### Operational Point
 
 An operational point (station, junction, stopping point, border point, ...) is one of the central elements:
@@ -1039,7 +1055,7 @@ A section of line connects two operational points and contains tracks:
 
 ```turtle
 <https://data.example.eu/_sectionsOfLine_SOL001> a era:SectionOfLine ;
-    rdfs:label "Hauptbahnhof-Westbahnhof" ;
+    rdfs:label "Hauptbahnhof-Westbahnhof"@de, "Main Station–West Station"@en ;
     era:opStart <https://data.example.eu/_operationalPoints_OP001> ;
     era:opEnd <https://data.example.eu/_operationalPoints_OP002> ;
     era:solNature <http://data.europa.eu/949/concepts/sol-natures/10> ;  # Regular SOL
@@ -1055,7 +1071,7 @@ Tracks are ... (nope.. not going to tumble in that rabbit hole...). The ERA onto
 
 ```turtle
 <https://data.example.eu/_tracks_TRK001> a era:RunningTrack ;
-    rdfs:label "Track 1" ;
+    rdfs:label "Gleis 1"@de, "Track 1"@en ;
     era:trackId "TRK001" ;
     era:inCountry <http://publications.europa.eu/resource/authority/country/DEU> ;
     era:infrastructureManager <http://data.europa.eu/949/organisations/0080_IM> ;
@@ -1072,7 +1088,7 @@ Tracks also link to functional resources (see [Functional Resources](#functional
 
 ```turtle
 <https://data.example.eu/_switches_SW001> a era:Switch ;
-    rdfs:label "Switch 42" ;
+    rdfs:label "Weiche 42"@de, "Switch 42"@en ;
     era:inCountry <http://publications.europa.eu/resource/authority/country/DEU> ;
     era:infrastructureManager <http://data.europa.eu/949/organisations/0080_IM> ;
     era:netReference <https://data.example.eu/_netPointRef_SW001> .
@@ -1082,7 +1098,7 @@ Tracks also link to functional resources (see [Functional Resources](#functional
 
 ```turtle
 <https://data.example.eu/_signals_SIG001> a era:Signal ;
-    rdfs:label "Signal A1" ;
+    rdfs:label "Signal A1"@de, "Signal A1"@en ;
     era:signalType <http://data.europa.eu/949/concepts/signal-types/10> ;
     era:signalDirection <http://data.europa.eu/949/concepts/signal-directions/Both> ;
     era:inCountry <http://publications.europa.eu/resource/authority/country/DEU> ;
@@ -1108,7 +1124,7 @@ Tracks also link to functional resources (see [Functional Resources](#functional
 
 ```turtle
 <https://data.example.eu/_tunnels_TUN001> a era:Tunnel ;
-    rdfs:label "Bergtunnel" ;
+    rdfs:label "Bergtunnel"@de, "Mountain Tunnel"@en ;
     era:tunnelIdentification "TUN001" ;          # REQUIRED (SHACL minCount=1)
     era:lineReferenceTunnelStart <https://data.example.eu/_netPointRef_TUN001_start> ;  # REQUIRED
     era:lineReferenceTunnelEnd   <https://data.example.eu/_netPointRef_TUN001_end> ;    # REQUIRED
@@ -1140,7 +1156,7 @@ Tracks also link to functional resources (see [Functional Resources](#functional
 
 ```turtle
 <https://data.example.eu/_bridges_BRG001> a era:Bridge ;
-    rdfs:label "Rheinbrücke" ;
+    rdfs:label "Rheinbrücke"@de, "Rhine Bridge"@en ;
     era:inCountry <http://publications.europa.eu/resource/authority/country/DEU> ;
     era:infrastructureManager <http://data.europa.eu/949/organisations/0080_IM> ;
     era:netReference <https://data.example.eu/_netLinRef_BRG001> ;
@@ -1155,7 +1171,7 @@ Tracks also link to functional resources (see [Functional Resources](#functional
 
 ```turtle
 <https://data.example.eu/_levelCrossings_LC001> a era:LevelCrossing ;
-    rdfs:label "Bahnübergang Feldweg" ;
+    rdfs:label "Bahnübergang Feldweg"@de, "Feldweg Level Crossing"@en ;
     era:inCountry <http://publications.europa.eu/resource/authority/country/DEU> ;
     era:infrastructureManager <http://data.europa.eu/949/organisations/0080_IM> ;
     era:netReference <https://data.example.eu/_netPointRef_LC001> .
@@ -1167,7 +1183,7 @@ Tracks also link to functional resources (see [Functional Resources](#functional
 
 ```turtle
 <https://data.example.eu/_platformEdges_PE001> a era:PlatformEdge ;
-    rdfs:label "Platform 1" ;
+    rdfs:label "Bahnsteig 1"@de, "Platform 1"@en ;
     era:inCountry <http://publications.europa.eu/resource/authority/country/DEU> ;
     era:infrastructureManager <http://data.europa.eu/949/organisations/0080_IM> ;
     era:netReference <https://data.example.eu/_netLinRef_PE001> ;

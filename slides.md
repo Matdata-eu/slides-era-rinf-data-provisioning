@@ -842,7 +842,7 @@ The `era:infrastructureManager` property on all infrastructure elements (Tracks,
 <era:organisations/0076> a era:Body ;
     era:organisationCode "0076" ;
     era:role <era:organisations/0076_IM> ;
-    rdfs:label "Bane NOR"@no .
+    rdfs:label "Bane NOR"@no, "Bane NOR"@en .
 
 <era:organisations/0076_IM> a era:OrganisationRole ;
     era:hasOrganisationRole
@@ -932,7 +932,7 @@ But what about schematic coordinates? A schematic visualisation?
     ] ;
     gsp:hasGeometry [          # separate schematic-diagram geometry
         a gsp:Geometry ;
-        rdfs:label "Schematic"@en ;
+        rdfs:label "Schematic"@en, "Schematisch"@de ;
         gsp:asWKT "<https://data.example.eu/schematic/0/> LINESTRING(0 0, 500 0)"^^gsp:wktLiteral
     ] .
 ```
@@ -1354,8 +1354,8 @@ layout: two-cols
 
 ```turtle
 <_:OP001> a era:OperationalPoint ;
-    era:opName "Hauptbahnhof"@de ;
-    rdfs:label "Hauptbahnhof"@de ;
+    era:opName "Hauptbahnhof"@de, "Main Station"@en ;
+    rdfs:label "Hauptbahnhof"@de, "Main Station"@en ;
     era:opType
       <era:concepts/op-types/10> ;   # station
     era:uopid "DEHBF" ;
@@ -1404,7 +1404,8 @@ A `SectionOfLine` connects two `OperationalPoint` instances and acts as a **cont
 
 ```turtle
 <_:SOL001> a era:SectionOfLine ;
-    rdfs:label "Hauptbahnhof–Westbahnhof" ;
+    rdfs:label "Hauptbahnhof–Westbahnhof"@de,
+              "Main Station–West Station"@en ;
     era:opStart <_:OP001> ;
     era:opEnd   <_:OP002> ;
     era:solNature <era:concepts/sol-natures/10> ;   # Regular SoL
@@ -1471,7 +1472,7 @@ layout: two-cols-header
 
 ```turtle
 <_:SIG001> a era:Signal ;
-    rdfs:label "Signal A1" ;
+    rdfs:label "Signal A1"@de, "Signal A1"@en ;
     era:signalType <era:concepts/signal-types/01> ;
     era:inCountry country:DEU ;
     era:infrastructureManager <_:0080_IM> ;
@@ -1524,7 +1525,7 @@ layout: two-cols-header
 
 ```turtle
 <_:TUN001> a era:Tunnel ;
-    rdfs:label "Bergtunnel" ;
+    rdfs:label "Bergtunnel"@de, "Mountain Tunnel"@en ;
     era:tunnelIdentification "TUN001" ;          # REQUIRED
     era:lineReferenceTunnelStart <_:NPR_start> ; # REQUIRED
     era:lineReferenceTunnelEnd   <_:NPR_end> ;   # REQUIRED
@@ -1580,7 +1581,7 @@ layout: default
 
 ```turtle
 <_:BRG001> a era:Bridge ;
-    rdfs:label "Rheinbrücke" ;
+    rdfs:label "Rheinbrücke"@de, "Rhine Bridge"@en ;
     era:inCountry country:DEU ;
     era:infrastructureManager <_:0080_IM> ;
     era:netReference <_:NLR_BRG001> ;
@@ -1625,7 +1626,7 @@ No additional SHACL-required properties beyond the base for `era:LevelCrossing`.
 
 ```turtle
 <_:LC001> a era:LevelCrossing ;
-    rdfs:label "Bahnübergang Feldweg" ;
+    rdfs:label "Bahnübergang Feldweg"@de, "Feldweg Level Crossing"@en ;
     era:inCountry country:DEU ;
     era:infrastructureManager <_:0080_IM> ;
     era:netReference <_:NPR_LC001> .
@@ -1667,7 +1668,7 @@ Also: `era:platformId` — string identifier matching the OP's platform label.
 
 ```turtle
 <_:PE001> a era:PlatformEdge ;
-    rdfs:label "Platform 1" ;
+    rdfs:label "Bahnsteig 1"@de, "Platform 1"@en ;
     era:inCountry country:DEU ;
     era:infrastructureManager <_:0080_IM> ;
     era:netReference <_:NLR_PE001> ;
@@ -4208,7 +4209,7 @@ layout: default
 # ═══ Organisation (v3.1 pattern) ════════════════════════════════════
 <era:organisations/0076> a era:Body ;
     era:organisationCode "0076" ;
-    rdfs:label "Bane NOR"@no .
+    rdfs:label "Bane NOR"@no, "Bane NOR"@en .
 
 <era:organisations/0076_IM> a era:OrganisationRole ;
     era:hasOrganisationRole <era:concepts/organisation-roles/IM> ;
