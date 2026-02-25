@@ -25,6 +25,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
   - [Resources](#resources)
     - [Application Guide](#application-guide)
     - [GitLab: ERA Ontology Repository](#gitlab-era-ontology-repository)
+      - [Tracking Ontology Changes](#tracking-ontology-changes)
     - [Dataset Manager](#dataset-manager)
       - [Getting access](#getting-access)
       - [Full Dataset Upload](#full-dataset-upload)
@@ -32,6 +33,9 @@ A practical guide for infrastructure managers providing railway infrastructure d
     - [SPARQL Endpoint](#sparql-endpoint)
     - [RINF Working Group (SharePoint)](#rinf-working-group-sharepoint)
   - [KG Generation Tools](#kg-generation-tools)
+    - [Converting Legacy RINF XML to RDF](#converting-legacy-rinf-xml-to-rdf)
+      - [Option 1 — Dataset Manager (server-side conversion)](#option-1--dataset-manager-server-side-conversion)
+      - [Option 2 — RINF-XML2RDF (local converter)](#option-2--rinf-xml2rdf-local-converter)
     - [SPARQL-Anything](#sparql-anything)
     - [(R2)RML / YARRRML](#r2rml--yarrrml)
     - [OTTR](#ottr)
@@ -385,6 +389,59 @@ Access requires an EU Login account with membership in the RINFNet group. Contac
 ## KG Generation Tools
 
 Your source data, whether from a database, CSV files, GIS exports, or any other format, needs to be transformed into RDF triples conforming to the ERA ontology. Several tools and approaches exist.
+
+### Converting Legacy RINF XML to RDF
+
+If your current RINF data is in the **legacy XML format**, ERA provides two ready-made conversion paths that do not require writing custom mapping code.
+
+#### Option 1 — Dataset Manager (server-side conversion)
+
+1. Log in to the **UAT Dataset Manager**: https://uat.ld4rail.fpfis.tech.ec.europa.eu/
+2. Upload your legacy `.xml` file.
+3. The server validates the file against the **XSD schema**.
+4. On success, the server automatically **converts the XML to ERA ontology v3.1 RDF**.
+5. Download and review the generated dataset.
+
+This is the quickest way to see what ERA generates from your existing data — no local tooling required.
+
+#### Option 2 — RINF-XML2RDF (local converter)
+
+ERA provides a standalone Windows executable in the `era-kg-mappings` repository:
+
+**Download**: [RINF-XML2RDF.exe on GitLab](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-kg-mappings/-/blob/main/RINF-XML2RDF.exe)
+
+```
+RINF-XML2RDF.exe --in INFILE --out OUTFILE --graph GRAPH [--format FORMAT]
+                 [--debug] [--log-level {INFO,WARNING,VIOLATION}] [--log-file LOG_FILE]
+```
+
+| Argument | Required | Description |
+|---|---|---|
+| `--in` | ✅ | Input RINF XML file path |
+| `--out` | ✅ | Output RDF file path (Turtle by default) |
+| `--graph` | ✅ | Named graph URI for the output dataset |
+| `--format` | — | Output serialization format (e.g., `turtle`, `n-triples`) |
+| `--log-level` | — | Log verbosity: `INFO`, `WARNING`, or `VIOLATION` |
+| `--log-file` | — | Write log output to a file instead of stdout |
+| `--debug` | — | Enable verbose debug output |
+
+**Example:**
+```bash
+RINF-XML2RDF.exe \
+  --in   rinf-data.xml \
+  --out  rinf-data.ttl \
+  --graph http://data.europa.eu/949/graph/rinf/0088
+```
+
+The local converter is useful for:
+- Offline conversion (no network or portal access needed)
+- Integrating into a CI/CD pipeline
+- Processing large files without upload size limits
+- Inspecting and validating the output before uploading
+
+> ⚠️ **Limitation:** Both methods are limited to what the **legacy XML schema** contains. Parameters absent from the legacy format — including **micro topology** and other properties introduced in later ontology versions — will **not** be present in the generated RDF output. 
+
+> **Note:** Both options use the same ERA mapping rules and produce equivalent ERA ontology v3.1 RDF. After conversion, validate the output locally with SHACL before the production submission (see [Executing SHACL Validation](#executing-shacl-validation)).
 
 ### SPARQL-Anything
 

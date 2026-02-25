@@ -2433,6 +2433,78 @@ layout: section
 -->
 
 ---
+layout: two-cols-header
+---
+
+# 🔄 Converting Legacy RINF XML to RDF
+
+If your current RINF data is in the **legacy XML format**, you have two paths to generate ontology v3.1 RDF — without writing SPARQL or Python.
+
+::left::
+
+### Option 1 — Dataset Manager (server-side)
+
+1. Log in to the [**UAT Dataset Manager**](https://uat.ld4rail.fpfis.tech.ec.europa.eu/)
+2. Upload your legacy `.xml` file
+3. The server validates it against the **XSD schema**
+4. On success, it is automatically **converted to RDF** (ontology v3.1)
+5. Download and review the generated dataset
+
+<v-click>
+
+> ✅ No local tooling required. Good first step to see what ERA generates from your data.
+
+</v-click>
+
+::right::
+
+<div>
+
+
+<v-click>
+
+### Option 2 — Local converter (RINF-XML2RDF)
+
+ERA provides a standalone Windows executable:
+
+**[RINF-XML2RDF.exe on GitLab](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-kg-mappings/-/blob/main/RINF-XML2RDF.exe)**
+
+```
+RINF-XML2RDF.exe \
+  --in   path/to/rinf-data.xml \
+  --out  path/to/output.ttl \
+  --graph http://data.europa.eu/949/graph/rinf/0088
+```
+
+</v-click>
+
+<v-click>
+
+> 🖥️ Run locally — no upload needed.
+
+</v-click>
+
+<v-click>
+
+<div class="mt-4 bg-orange-50 dark:bg-orange-900 text-gray-800 dark:text-orange-100 rounded p-3 text-xs border border-orange-300 dark:border-orange-700">
+⚠️ <strong>Limitation:</strong> Both methods are limited to what the <strong>legacy XML schema</strong> contains. Parameters absent from the legacy format — including <strong>micro topology</strong> and other properties added in later ontology versions — will <em>not</em> be included in the output.
+</div>
+
+</v-click>
+
+</div>
+
+<!--
+Both options produce the same ERA ontology v3.1 RDF — they use the same ERA mapping rules.
+
+Option 1 (Dataset Manager) is the quickest to get started: just upload and inspect. Good for IMs who want to see what their existing data looks like as RDF before committing to a full pipeline build.
+
+Option 2 (local exe) gives full control: run offline, integrate into CI, inspect the output before uploading. Requires Windows (or Wine on Linux/Mac).
+
+In both cases, the output should then be validated with SHACL locally before the final production submission.
+-->
+
+---
 layout: default
 ---
 
