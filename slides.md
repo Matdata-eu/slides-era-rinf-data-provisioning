@@ -1744,7 +1744,7 @@ layout: two-cols
 
 `era:PrimaryLocation` — TAF/TAP TSI telematics link
 
-A Primary Location (`era:PrimaryLocation`) is a subclass of `era:InfrastructureElement` and links an Operational Point to the TAF/TAP TSI location catalogue (used in freight/passenger telematics).
+A Primary Location (`era:PrimaryLocation`) is a subclass of `era:InfrastructureElement` and links any other `era:InfrastructureElement` to the TAF/TAP TSI location catalogue (used in freight/passenger telematics).
 
 **Key properties:**
 
