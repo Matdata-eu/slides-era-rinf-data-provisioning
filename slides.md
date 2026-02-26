@@ -3334,7 +3334,7 @@ layout: default
 
 Before submitting, inspect your generated RDF locally.
 
-<div class="grid grid-cols-3 gap-3 mt-4 text-sm">
+<div class="grid grid-cols-2 gap-4 mt-4 text-sm">
 <div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
 **Apache Jena Fuseki**
@@ -3354,30 +3354,71 @@ Web UI at `http://localhost:3030/`
 </div>
 <div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
 
-**YasGUI**
-
-Web SPARQL editor with autocompletion and result visualisation.
-
-Point at your local Fuseki or the ERA public endpoint.
-
-🔗 https://yasgui.matdata.eu/
-
-</div>
-<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded p-3">
-
 **SPARQL Notebook**
 
-VS Code extension — write and execute SPARQL queries inline in a notebook. Great for iterative development and debugging.
+VS Code extension — write and execute SPARQL queries inline in a notebook. Ideal for iterative development and debugging — results appear directly below each cell.
 
-🔗 _Zazuko SPARQL Notebook_
+🔗 _Zazuko SPARQL Notebook_ (VS Code Marketplace)
 
 </div>
 </div>
 
 <!--
 Fuseki is the workhorse. Everyone should have it running locally by the end of the workshop.
-YasGUI is browser-based — no install needed.
 SPARQL Notebook is the most ergonomic if you're already in VS Code.
+YasGUI gets its own slide.
+-->
+
+---
+layout: default
+---
+
+# 🔎 YasGUI — Custom SPARQL Editor
+
+A heavily extended fork of Zazuko YasGUI, maintained at [Matdata-eu/Yasgui](https://github.com/Matdata-eu/Yasgui) · 🔗 [yasgui.matdata.eu](https://yasgui.matdata.eu) · 📖 [yasgui-doc.matdata.eu](https://yasgui-doc.matdata.eu)
+
+<div class="grid grid-cols-2 gap-4 mt-3 text-sm">
+<div>
+
+**Query editing**
+- SPARQL **formatter** — auto-format on execution or on demand
+- **Code snippets** bar for reusable query fragments
+- **Rainbow bracket** colorization + GitHub dark theme
+- **Undeclared variable** highlighting in CONSTRUCT queries
+- **Quick DESCRIBE** — Ctrl+Click any URI for instant description
+
+**Results & visualisation**
+- **Graph plugin** — interactive RDF node-link graph
+- **Geo plugin** — geographic results on a map
+- **Horizontal layout** — side-by-side editor & results with draggable resizer
+- **Improved table** — URI/datatype toggles, Markdown copy (Tabulator.js)
+
+</div>
+<div>
+
+**Endpoint & authentication**
+- One-click **endpoint quick-switch buttons** 
+- **Auth support**: HTTP Basic, Bearer Token, API Key, OAuth 2.0
+- **Custom request headers** per endpoint
+
+**Workspaces & sharing**
+- **Managed queries** — save/load to a SPARQL endpoint or Git repo
+- **Config export/import** — back up your full configuration
+- **Share URL** — curl / PowerShell / wget formats / URL shortening
+
+**UX**
+- **Dark mode** with persistence
+- **Fullscreen** for editor and results
+- **Automatic prefix management** via modal
+- **Responsive design** for smaller screens
+
+</div>
+</div>
+
+<!--
+This is a custom fork actively developed for the RINF/ERA use case.
+Key differentiators from upstream: authentication, workspaces, code snippets, the graph and geo plugins, and the full dark mode.
+Point participants to the documentation site for the full user guide.
 -->
 
 ---

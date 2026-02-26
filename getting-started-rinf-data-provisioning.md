@@ -1905,7 +1905,38 @@ Fuseki provides a web UI at `http://localhost:3030/` where you can run queries i
 
 #### YasGUI
 
-[YasGUI](https://yasgui.matdata.eu/) is a web-based SPARQL query editor with syntax highlighting, autocompletion, and result visualisation. Point it at your (local) Fuseki endpoint or the ERA public SPARQL endpoint to explore data.
+[YasGUI](https://yasgui.matdata.eu/) is a custom fork of the open-source Zazuko YasGUI, maintained at [Matdata-eu/Yasgui](https://github.com/Matdata-eu/Yasgui). It is a web-based SPARQL query editor with syntax highlighting, autocompletion, and result visualisation. Point it at your local Fuseki endpoint or the ERA public SPARQL endpoint to explore data. A user and developer guide is available at [yasgui-doc.matdata.eu](https://yasgui-doc.matdata.eu).
+
+Key improvements over the upstream Zazuko release:
+
+**Query editing**
+- **SPARQL formatter** — auto-formats queries on execution or on demand, with user-selectable formatting options
+- **Code snippets** — configurable snippet bar in the editor for reusable query fragments
+- **Rainbow bracket colorization** and an improved GitHub dark theme for CodeMirror
+- **Undeclared variable highlighting** — CONSTRUCT queries with undeclared variables are flagged in the editor
+- **Quick DESCRIBE** — Control+Click on any URI (including prefixed URIs) to instantly retrieve its description
+
+**Results & visualisation**
+- **Graph plugin** — visualise RDF results as an interactive node-link graph
+- **Geo plugin** — render geographic results on a map
+- **Horizontal layout** — side-by-side editor and results panel with a draggable resizer (toggleable at runtime)
+- **Improved table plugin** — rewritten with Tabulator.js; includes URI/datatype toggles and Markdown copy
+
+**Endpoint & authentication**
+- **Endpoint quick-switch buttons** — configurable one-click buttons to switch between endpoints, with overflow dropdown on small screens
+- **Authentication support** — HTTP Basic Auth, Bearer Token, API Key, and OAuth 2.0 per endpoint
+- **Arbitrary request headers** — add custom HTTP headers to SPARQL requests
+
+**Workspaces & sharing**
+- **Managed queries / Workspaces** — save and load queries to/from a SPARQL endpoint or a Git repository ([docs](https://yasgui-doc.matdata.eu/docs/user-guide#managed-queries-and-workspaces))
+- **Configuration export/import** — back up and restore your full YasGUI configuration
+- **Share URL** — generate shareable links in curl, PowerShell, or wget format, with optional URL shortening
+
+**UX**
+- **Dark mode** — full dark theme with toggle button and persistence across sessions
+- **Fullscreen mode** — for both the query editor and result viewer
+- **Automatic prefix management** — add and persist namespace prefixes via a modal window
+- **Responsive design** — adapts to smaller screens and mobile devices
 
 ### Executing SHACL Validation
 
