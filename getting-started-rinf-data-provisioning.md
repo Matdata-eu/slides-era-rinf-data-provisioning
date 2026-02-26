@@ -31,6 +31,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
       - [Full Dataset Upload](#full-dataset-upload)
       - [Partial Dataset Upload](#partial-dataset-upload)
     - [SPARQL Endpoint](#sparql-endpoint)
+    - [GraphDB — Visual Graph Explorer](#graphdb--visual-graph-explorer)
     - [RINF Working Group (SharePoint)](#rinf-working-group-sharepoint)
   - [KG Generation Tools](#kg-generation-tools)
     - [Converting Legacy RINF XML to RDF](#converting-legacy-rinf-xml-to-rdf)
@@ -70,6 +71,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
       - [Spatial Positioning (GeoSPARQL)](#spatial-positioning-geosparql)
       - [Linear Referencing (Kilometric Posts)](#linear-referencing-kilometric-posts)
     - [Infrastructure Elements](#infrastructure-elements)
+      - [Naming: `rdfs:label`](#naming-rdfslabel)
       - [Operational Point](#operational-point)
       - [Section of Line](#section-of-line)
       - [Track (RunningTrack / Siding)](#track-runningtrack--siding)
@@ -99,6 +101,10 @@ A practical guide for infrastructure managers providing railway infrastructure d
     - [Special Cases](#special-cases)
       - [Temporal Features](#temporal-features)
       - [Border Points](#border-points)
+      - [`era:notYetAvailable` and `era:notApplicable`](#eranotyetavailable-and-eranotapplicable)
+        - [`era:notYetAvailable` — electrification data not yet submitted](#eranotyetavailable--electrification-data-not-yet-submitted)
+        - [`era:notApplicable` — ETCS not applicable on a heritage line](#eranotapplicable--etcs-not-applicable-on-a-heritage-line)
+        - [SPARQL patterns](#sparql-patterns)
       - [Documents](#documents)
       - [Topology and `era:hasPart`](#topology-and-erahaspart)
       - [`era:connectedTo`](#eraconnectedto)
@@ -1718,6 +1724,72 @@ Operational points of type "border point" (SKOS concept `op-types/90`) have spec
 The list of border points can currently be found on the [ERA RINF website](https://www.era.europa.eu/domains/registers/rinf_en) as a [CSV file](https://www.era.europa.eu/sites/default/files/2025-03/rinf_border_points.csv).
 
 > **Author's note**: OK, we have a solution to link borders between national networks on the meso/macro level. But shouldn't we also be able to do something similar on the micro topology?
+
+#### `era:notYetAvailable` and `era:notApplicable`
+
+ERA provides two properties for signalling that a normally-required property either hasn't been provided yet or is conceptually irrelevant for a particular infrastructure element. Both properties are defined on `era:InfrastructureElement` and validated by SHACL inside `era:InfrastructureElementShape`.
+
+| Property | Label | When to use |
+|---|---|---|
+| `era:notYetAvailable` | "Not provided" | The data should exist but the IM hasn't submitted it yet (pending/incomplete) |
+| `era:notApplicable` | "Not applicable" | The property is conceptually irrelevant for this element (by design, not by omission) |
+
+**Key rule**: The **object** of both properties is the **IRI of the ERA property being flagged** — not a value of that property. SHACL validates that the object is an `owl:ObjectProperty` or `owl:DatatypeProperty` IRI.
+
+These are mutually exclusive with the actual triple: if you state `era:notYetAvailable era:contactLineSystem`, do **not** also provide `era:contactLineSystem <_:CLS001>` on the same subject.
+
+##### `era:notYetAvailable` — electrification data not yet submitted
+
+Use `era:notYetAvailable` when you know a property is required for an element but the data hasn't been provided yet.
+
+```turtle
+@prefix era: <http://data.europa.eu/949/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.example.eu/tracks/TRK001>
+    a era:RunningTrack ;
+    # ... other properties ...
+    era:notYetAvailable era:contactLineSystem .
+    # Do NOT also add: era:contactLineSystem <_:CLS001>
+```
+
+The object `era:contactLineSystem` is the property IRI itself. SHACL will check that it is a valid `owl:ObjectProperty` or `owl:DatatypeProperty`.
+
+##### `era:notApplicable` — ETCS not applicable on a heritage line
+
+Use `era:notApplicable` when the property will never apply to this element — for example, a track on a heritage or conventional line that is not equipped with ETCS.
+
+```turtle
+@prefix era: <http://data.europa.eu/949/> .
+
+<https://data.example.eu/tracks/TRK001>
+    a era:RunningTrack ;
+    # ... other properties ...
+    era:notApplicable era:etcs .
+    # Do NOT also add: era:etcs <_:ETCS001>
+```
+
+The object `era:etcs` is the property IRI itself. The distinction from `era:notYetAvailable` is semantic: `era:notApplicable` asserts "this property will never have a value here", while `era:notYetAvailable` asserts "this property should have a value but hasn't been provided".
+
+##### SPARQL patterns
+
+To find all tracks where a specific property is flagged:
+
+```sparql
+PREFIX era: <http://data.europa.eu/949/>
+
+# Tracks with contactLineSystem not yet provided
+SELECT ?track WHERE {
+  ?track a era:RunningTrack ;
+         era:notYetAvailable era:contactLineSystem .
+}
+
+# Tracks where ETCS is explicitly not applicable
+SELECT ?track WHERE {
+  ?track a era:RunningTrack ;
+         era:notApplicable era:etcs .
+}
+```
 
 #### Documents
 

@@ -814,6 +814,8 @@ layout: default
 - Border Points
 - Documents
 - `era:hasPart` (inferred)
+- `era:notYetAvailable` (not yet provided)
+- `era:notApplicable` (not applicable)
 
 </div>
 </div>
@@ -2367,6 +2369,116 @@ era:connectedTo answers the question: "which tracks are reachable from this trac
 The limitation is real: if a train arrives on national line 1 in the opposite direction, it can only reach trackC, not trackA — but the property cannot express that asymmetry.
 
 Best practice: infer connectedTo from topology (NetRelation boundaries) rather than stating it manually.
+-->
+
+---
+layout: default
+---
+
+# ⏳ `era:notYetAvailable`
+
+<div class="grid grid-cols-2 gap-4 mt-2 text-sm">
+<div>
+
+**When to use:**
+
+The property **should** have a value, but the IM hasn't submitted it yet. Use `era:notYetAvailable` pointing to the **property IRI itself** — not a value of the property.
+
+**Rules:**
+- Object must be an `owl:ObjectProperty` or `owl:DatatypeProperty` IRI
+- SHACL-validated inside `era:InfrastructureElementShape`
+- **Mutually exclusive** with providing the actual triple — do not combine both
+
+**Semantics:**
+> `era:notYetAvailable` = _"this data exists but hasn't been provided"_ (pending/incomplete)
+
+</div>
+<div>
+
+Data example: 
+
+```turtle
+# Electrification data pending — not yet submitted by the IM
+<https://data.example.eu/tracks/TRK001>
+    a era:RunningTrack ;
+    era:notYetAvailable era:contactLineSystem .
+
+# ✅ The object is the property IRI itself
+# ❌ Do NOT also add:
+#    era:contactLineSystem <_:CLS001>
+```
+
+Find data that is not yet available:
+
+```sparql
+# Query: find tracks missing contactLineSystem
+SELECT ?track WHERE {
+  ?track a era:RunningTrack ;
+         era:notYetAvailable era:contactLineSystem .
+}
+```
+
+</div>
+</div>
+
+<!--
+era:notYetAvailable is the "I don't have it yet" marker.
+It signals an obligation — the data provider acknowledges the property exists and is required, but hasn't been filled in.
+The object is the property IRI (era:contactLineSystem), NOT a value of that property.
+SHACL will validate that the IRI is actually an owl:ObjectProperty or owl:DatatypeProperty.
+-->
+
+---
+layout: default
+---
+
+# 🚫 `era:notApplicable`
+
+<div class="grid grid-cols-2 gap-4 mt-2 text-sm">
+<div>
+
+**When to use:**
+
+The property is **conceptually irrelevant** for this element — not unknown, not pending. Use `era:notApplicable` pointing to the **property IRI itself**.
+
+**Rules:**
+- Object must be an `owl:ObjectProperty` or `owl:DatatypeProperty` IRI
+- SHACL-validated inside `era:InfrastructureElementShape`
+- **Mutually exclusive** with providing the actual triple — do not combine both
+
+**Semantics:**
+> `era:notApplicable` = _"this property does not apply here"_ (by design, not by omission)
+
+</div>
+<div>
+
+```turtle
+# Heritage / conventional line: no ETCS equipment fitted
+<https://data.example.eu/tracks/TRK001>
+    a era:RunningTrack ;
+    era:notApplicable era:etcs .
+
+# ✅ The object is the property IRI itself
+# ❌ Do NOT also add:
+#    era:etcs <_:ETCS001>
+```
+
+```sparql
+# Query: find tracks where ETCS is explicitly not applicable
+SELECT ?track WHERE {
+  ?track a era:RunningTrack ;
+         era:notApplicable era:etcs .
+}
+```
+
+</div>
+</div>
+
+<!--
+era:notApplicable is the "this doesn't apply here" marker.
+Classic use case: a heritage or conventional line that is not equipped with ETCS at all.
+The object is era:etcs (the property IRI), NOT an ETCS instance.
+Contrast with notYetAvailable: notApplicable says "this will never apply", not "this is pending".
 -->
 
 ---
