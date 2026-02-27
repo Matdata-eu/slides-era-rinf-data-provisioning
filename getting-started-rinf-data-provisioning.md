@@ -1912,6 +1912,10 @@ Several ERA properties reference `era:Document` instances (e.g., `era:conditions
 
 ![How to get the URL of an uploaded reference document](./assets/how-to-get-uploaded-document-url.gif)
 
+If you would like to retrieve the IDs for a list of documents, use a similar technique with the Developer Tools to fetch the JSON object and use conventional JSON tools (or SPARQL-Anything!) to retrieve the IDs from the list:
+
+![Retrieve list of IDs from reference documents](./assets/play-list-of-document-id-retrieval.gif)
+
 A Document resource looks like:
 
 ```turtle
