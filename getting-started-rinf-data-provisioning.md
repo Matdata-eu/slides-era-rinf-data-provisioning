@@ -50,6 +50,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
     - [URI Minting](#uri-minting)
       - [Use the ERA Namespace](#use-the-era-namespace)
       - [Use Your Own Namespace](#use-your-own-namespace)
+    - [URI Dereferencing](#uri-dereferencing)
     - [Using SKOS Concept Schemes](#using-skos-concept-schemes)
     - [Interpreting SHACL](#interpreting-shacl)
     - [External Controlled Vocabularies](#external-controlled-vocabularies)
@@ -704,6 +705,35 @@ Dereferenceable URIs should support content negotiation:
 [Open source software](https://github.com/Matdata-eu/URI-Dereferencer) is available to help you set up a dereferencable infrastructure. 
 
 > **Opinion**: Using your own namespace with a flat URI structure (e.g., `https://data.mycompany.eu/_tracks_TRK-001`) keeps PREFIX declarations minimal and makes URIs more manageable.
+
+### URI Dereferencing
+
+**URI dereferencing** is the practice of making every IRI a resolvable, human-readable HTTP resource — the "last mile" of Linked Data. When a browser or HTTP client performs a GET on an ERA resource URI it should receive a description of that resource, not a 404.
+
+The open-source [`Matdata-eu/simple-dereferencing`](https://github.com/Matdata-eu/simple-dereferencing) tool provides a lightweight way to dereference ERA URIs using any SPARQL endpoint:
+
+- Runs as a single Docker container (nginx serving a client-side SPA)
+- Executes a `SPARQL DESCRIBE` for any URI under a configured base
+- **Content negotiation**: responds with Turtle, RDF/XML, or JSON-LD when the client sends the appropriate `Accept` header; renders HTML in a browser
+- **Map rendering**: detects `gsp:hasGeometry` triples automatically and renders WKT coordinates on a Leaflet map
+
+**Quick-start**
+
+```bash
+docker run -p 8080:80 \
+  -e SPARQL_ENDPOINT=https://data-interop.era.europa.eu/api/sparql \
+  -e BASE_URI=http://data.europa.eu/949/ \
+  ghcr.io/matdata-eu/uri-dereferencer:latest
+```
+
+After starting the container, open `http://localhost:8080/<any-era-uri>` in a browser to see a human-readable description of that resource. Use it to:
+
+- Verify submitted data looks correct before running SHACL validation
+- Share a URI with a colleague — they get a readable HTML page without needing a SPARQL client
+- Debug geometry by inspecting WKT coordinates on the Leaflet map
+- Inspect RDF in Turtle or JSON-LD via the content-negotiation buttons in the UI
+
+> **Requirement**: if you mint URIs in your own namespace (see [Use Your Own Namespace](#use-your-own-namespace)), those URIs must be dereferenceable. This tool, or equivalent infrastructure, satisfies that requirement.
 
 ### Using SKOS Concept Schemes
 
