@@ -116,6 +116,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
       - [Jena Fuseki](#jena-fuseki)
       - [YasGUI](#yasgui)
     - [Executing SHACL Validation](#executing-shacl-validation)
+      - [Reading a Validation Report](#reading-a-validation-report)
       - [What to Load into the Validator](#what-to-load-into-the-validator)
       - [Using MapLib](#using-maplib)
       - [Using PySHACL](#using-pyshacl)
@@ -2045,6 +2046,59 @@ Key improvements over the upstream Zazuko release:
 ### Executing SHACL Validation
 
 Validating your data against ERA SHACL shapes before submission is advisable. It saves you time because you will get faster feedback. Several tools support SHACL validation.
+
+#### Reading a Validation Report
+
+A SHACL validator produces an `sh:ValidationReport`. Each constraint failure is recorded as an `sh:ValidationResult` with the following fields:
+
+| Field | Meaning |
+|---|---|
+| `sh:focusNode` | The URI of the **resource** that has the problem |
+| `sh:resultPath` | The **property** (predicate) that is affected |
+| `sh:resultMessage` | A human-readable description of **what is wrong** |
+| `sh:sourceShape` | The SHACL shape that triggered the violation |
+| `sh:resultSeverity` | `sh:Violation` (must fix) or `sh:Warning` (should fix) |
+| `sh:sourceConstraintComponent` | The constraint type, e.g. `sh:MinCountConstraintComponent` |
+
+```turtle
+# Example: a missing era:netReference on a RunningTrack
+[] a sh:ValidationResult ;
+    sh:focusNode <https://data.example.eu/_tracks_TRK001> ;
+    sh:resultPath era:netReference ;
+    sh:resultSeverity sh:Violation ;
+    sh:resultMessage "Less than 1 values on era:netReference" ;
+    sh:sourceConstraintComponent sh:MinCountConstraintComponent ;
+    sh:sourceShape era:RunningTrackShape .
+```
+
+A quick method for summarizing the SHACL validation report to detect global problems is to use a SPARQL query on the report. Below is an example SPARQL query that produces such a summary:
+
+```sparql
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+SELECT ?level ?sourceShape (SAMPLE(?path) AS ?path) (SAMPLE(?message) AS ?message) (SAMPLE(?sourceConstraintComponent) AS ?sourceConstraintComponent) (COUNT(?violation) AS ?violation_count) (SAMPLE(?focusNode) AS ?example)
+WHERE {
+    ?violation a sh:ValidationResult ;
+                sh:sourceShape ?sourceShape ;
+                sh:focusNode ?focusNode ;
+                    .
+                    
+    OPTIONAL { ?violation sh:resultPath ?path }
+    OPTIONAL { ?violation sh:sourceConstraintComponent ?sourceConstraintComponent }
+    OPTIONAL { ?violation sh:resultMessage ?message }
+    OPTIONAL { ?violation sh:resultSeverity ?level }
+}
+GROUP BY ?level ?sourceShape
+ORDER BY ?level ?sourceShape
+```
+
+
+
+Debugging workflow:
+1. Count violations vs warnings — fix violations first.
+2. Group by `sh:resultPath`: a single systematic error often causes hundreds of violations.
+3. Fix the most frequent missing property with one SPARQL UPDATE rather than editing triples individually.
+
+> **Note on `sh:SPARQLConstraint` failures**: when a `sh:sparql`-based constraint fails, the `sh:ValidationResult` contains no `sh:sourceShape` pointer back to the SPARQL constraint node itself — only the `sh:resultMessage` is useful for diagnosis. 
 
 #### What to Load into the Validator
 
