@@ -129,6 +129,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
       - [era-dual-positioning](#era-dual-positioning)
       - [era-wkt-geometry-enrichment](#era-wkt-geometry-enrichment)
       - [era-functional-resources](#era-functional-resources)
+    - [railML Case Study: ERA Dataset from XML](#railml-case-study-era-dataset-from-xml)
     - [How This Repository Built the Knowledge Graph](#how-this-repository-built-the-knowledge-graph)
   - [Discussion](#discussion)
     - [Promoting Classes Linked to Tracks to Infrastructure Element Status](#promoting-classes-linked-to-tracks-to-infrastructure-element-status)
@@ -2266,6 +2267,48 @@ Algorithm for computing GeoSPARQL WKT geometries from topological coordinates us
 #### era-functional-resources
 
 Explains the functional resource pattern: classes like `ContactLineSystem`, `ETCS`, `TrainDetectionSystem` that are not infrastructure elements and therefore have no `era:netReference`. Includes discovery queries for finding the correct linking properties.
+
+### railML Case Study: ERA Dataset from XML
+
+This walkthrough describes how to convert a **railML 3.2** infrastructure file into RINF-compatible RDF using the [`Matdata-eu/raillML-to-ERA`](https://github.com/Matdata-eu/raillML-to-ERA) repository, which is built around the railML® advanced example v14.
+
+The pipeline has four stages:
+
+```
+railML XML  →  [01-prep]         SPARQL-Anything   →  one-eyed-graph.ttl
+            →  [02-construct]    SPARQL CONSTRUCT   →  era-graph.ttl
+            →  [03-post-process] Geometry enrichment→  era-graph-enriched.ttl
+            →  [04-validate]     SHACL validation   →  validation-report.ttl
+```
+
+**Step 1 — Lift to raw RDF (SPARQL-Anything)**
+
+SPARQL-Anything ingests the railML XML file directly using its `facade-x` extension — no custom XML parser is needed. The output (`one-eyed-graph.ttl`) mirrors the railML structure as RDF triples. This step is implemented as a SPARQL SELECT/CONSTRUCT query run with the SPARQL-Anything CLI:
+
+```bash
+sparql-anything -q 01-prep/one-eyed-graph.sparql -l 2025-11-03_railML_AdvancedExample_v14_railML3.2_patched.xml -o one-eyed-graph.ttl
+```
+
+For more information about the one-eyed-graph approach: https://github.com/w3c-facade-x/meetings/tree/main/meetings/2026-01-12 
+
+**Step 2 — Map to ERA ontology (SPARQL CONSTRUCT)**
+
+A set of SPARQL CONSTRUCT queries in `02-construct/` transforms the raw RDF into ERA ontology classes and properties. Each infrastructure element type has its own `.rq` file (e.g., `operational-points.rq`, `tracks.rq`, `signals.rq`). Run them in order against `one-eyed-graph.ttl` to produce `era-graph.ttl`.
+
+**Step 3 — Post-processing and geometry enrichment**
+
+Post-processing runs SPARQL UPDATE queries against `era-graph.ttl` to perform general inference or specific actions:
+- Add `era:validFrom` temporal features
+- Infer `era:hasPart` / `era:isPartOf` from topology overlap
+- Fix datatypes and add missing `rdf:type` declarations
+
+Geometry enrichment runs a Python/Shapely script that interpolates WKT geometries from topological coordinates (GeoSPARQL has no linear referencing support). The output is `era-graph-enriched.ttl`.
+
+**Step 4 — Validate locally**
+
+The enriched graph is validated against the ERA SHACL shapes before upload. See [Executing SHACL Validation](#executing-shacl-validation) for the full setup. Fixing violations locally avoids slow round trips with the Dataset Manager portal.
+
+---
 
 ### How This Repository Built the Knowledge Graph
 
