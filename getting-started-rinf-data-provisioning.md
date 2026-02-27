@@ -8,6 +8,7 @@ A practical guide for infrastructure managers providing railway infrastructure d
 
 - [Getting Started with Data Provisioning for RINF](#getting-started-with-data-provisioning-for-rinf)
   - [Table of Contents](#table-of-contents)
+  - [Terminology Quick Reference](#terminology-quick-reference)
   - [Introduction](#introduction)
     - [Legal Framework](#legal-framework)
       - [European Commission Implementing Regulation (EU) 2019/773: the RINF Regulation](#european-commission-implementing-regulation-eu-2019773-the-rinf-regulation)
@@ -147,6 +148,40 @@ A practical guide for infrastructure managers providing railway infrastructure d
     - [Document Upload Issues](#document-upload-issues)
   - [Getting into contact](#getting-into-contact)
 
+
+---
+
+## Terminology Quick Reference
+
+The following abbreviations and terms are used throughout this guide and the ERA ecosystem. Use this table as a quick look-up when you encounter unfamiliar terms.
+
+| Term / Abbreviation | Full form | Notes |
+|---|---|---|
+| **IRI** | Internationalised Resource Identifier | A URI that allows non-ASCII characters; used as the global identity for every RDF resource |
+| **URI** | Uniform Resource Identifier | The ASCII subset of IRI; both terms are often used interchangeably in ERA docs |
+| **RDF** | Resource Description Framework | W3C data model: every fact is a subject–predicate–object triple |
+| **TTL / Turtle** | Terse RDF Triple Language | Human-readable RDF serialization format (`.ttl` files) |
+| **SPARQL** | SPARQL Protocol and RDF Query Language | W3C query language for RDF graphs |
+| **SHACL** | Shapes Constraint Language | W3C standard for validating RDF graphs against a set of constraints |
+| **OWL-Time** | Web Ontology Language — Time | W3C ontology for describing temporal entities; used for `era:validity` intervals |
+| **SKOS** | Simple Knowledge Organisation System | W3C vocabulary for controlled term lists (concept schemes); ERA uses it for property value vocabularies |
+| **GeoSPARQL** | — | OGC standard for representing and querying geospatial data in RDF; used for `gsp:hasGeometry` / `gsp:asWKT` |
+| **era:** | `http://data.europa.eu/949/` | The ERA ontology namespace prefix; all ERA classes and properties start with this IRI |
+| **KG** | Knowledge Graph | A graph-structured dataset in which resources are identified by URIs and connected by typed relations |
+| **ERA** | EU Agency for Railways | The agency that maintains the RINF register, the ERA ontology, and the SHACL validation shapes |
+| **IM** | Infrastructure Manager | A national railway infrastructure operator responsible for submitting RINF data |
+| **RINF** | Register of Infrastructure | The EU-wide register of railway infrastructure characteristics, maintained by ERA |
+| **ERATV** | European Register of Authorised Types of Vehicles | Companion register to RINF, covering rolling stock |
+| **OP** | Operational Point | A station, junction, siding, or other significant point on the network |
+| **SoL** | Section of Line | A track segment between two operational points |
+| **NE / LinearElement** | Network Element | A directed topological segment of track in the micro-topology model |
+| **NR / NetRelation** | Network Relation | A connectivity link between two LinearElements |
+| **LRS** | Linear Referencing System | A system that identifies positions along a line (kilometric posts) |
+| **ETCS** | European Train Control System | The EU-standard train protection and control system |
+| **TEN-T** | Trans-European Transport Network | The EU core and comprehensive transport network corridors |
+| **TSI** | Technical Specification for Interoperability | EU technical standards encoded as properties in the ERA ontology |
+| **NRE** | National Registration Entity | Authority responsible for national vehicle registration |
+| **RCC** | Route Compatibility Check | A check verifying that a vehicle type is compatible with a given route |
 
 ---
 
