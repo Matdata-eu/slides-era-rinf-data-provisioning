@@ -205,6 +205,8 @@ Smart standardization:
 - How to give meaning to data => Ontology
 - How to define constraints => SHACL, RDFS
 
+![What is RDF about?](./assets/screenshot-why-rdf.png)
+
 #### RDF vs XML
 
 | Aspect | XML | RDF |
@@ -234,6 +236,8 @@ A REST API returns data per request in isolated JSON payloads. RDF provides:
 [LDES](https://semiceu.github.io/LinkedDataEventStreams) (Linked Data Event Streams) bridges the gap between RDF and event-driven architectures. An LDES publishes a stream of immutable, timestamped RDF members, where each member is a versioned snapshot of a resource.
 
 LDES is built on the W3C [TREE specification](https://treecg.github.io/specification/) and is already used in Flanders (Belgium) for publishing governmental Linked Data, including heritage and address registries. Its applicability to transactional data but also to railway infrastructure data provisioning is a natural fit, since infrastructure rarely changes in bulk, and incremental, event-based updates are more efficient than full-dataset re-uploads.
+
+![Linked Data Event Streams specification](./assets/screenshot-ldes.png)
 
 #### RDF as a Message Serialization Format
 
@@ -311,6 +315,16 @@ ERA publishes an application guide for RINF data provisioning:
 
 - [ERA RINF Application Guide](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/): official guidance on data requirements and ontology usage.
 
+![ERA RINF Application Guide](./assets/screenshot-application-guide.png)
+
+The application guide has a very useful feature. The search will allow you to reduce the size of the page to classes and properties that contain the search term. Below is an example on using the search term 'etcs':
+
+![ERA RINF Application Guide](./assets/play-appguide-etcs.gif)
+
+Known limitations of this feature:
+- It does not allow to search on the RINF index
+- When you want to click through from a filtered list, the filter can prevent you from reaching the class or property that you are interested in. So first remove the filter and then click on the link.
+
 ### GitLab: ERA Ontology Repository
 
 The ERA ontology, SHACL shapes, and controlled vocabularies are maintained in a public GitLab repository:
@@ -319,6 +333,8 @@ The ERA ontology, SHACL shapes, and controlled vocabularies are maintained in a 
 - **Ontology (OWL)**: defining classes, properties, and their semantics
 - **SHACL shapes**: `era-shacl/ERA-RINF-shapes.ttl`: validation constraints for RINF data
 - **SKOS concept schemes**: controlled vocabularies for enumerations (signal types, electrification systems, etc.)
+
+![ERA Ontology GitLab Repository](./assets/screenshot-gitlab-era-ontology.png)
 
 #### Tracking Ontology Changes
 
@@ -342,6 +358,8 @@ Keep track of what changed between ontology versions using these three complemen
 
 The ERA Dataset Manager is the submission portal for infrastructure data.
 
+![ERA Dataset Manager (UAT)](./assets/screenshot-dataset-manager.png)
+
 #### Getting access
 
 For requests that require action or support (such as account issues), please contact the [ERA Service Desk](servicedesk@era.europa.eu).
@@ -361,6 +379,8 @@ Upload a complete Turtle (`.ttl`) or N-Triples (`.nt`) file containing the entir
 
 Upload a subset of infrastructure data (e.g., only updated operational points) that is merged into the existing dataset. Partial uploads are useful when only a portion of the network has changed.
 
+![ERA Dataset Manager (UAT)](./assets/screenshot-partial-upload-zip.png)
+
 > **Tip**: Whether doing full or partial uploads, ensure referential integrity. For example, if a Track references an `era:OperationalPoint`, that OperationalPoint must either already exist in the dataset or be included in the upload.
 
 ### SPARQL Endpoint
@@ -376,6 +396,16 @@ Use this to:
 
 > **Tip**: use a custom [Yasgui](https://yasgui.matdata.eu/) instead of the ERA provided interface to optimize your experience.
 
+![Custom Yasgui SPARQL interface](./assets/screenshot-yasgui.png)
+
+Below is an example (in dark mode) on how to query the ERA graph and get a visual representation of ETCS related parameters.
+
+![Custom Yasgui SPARQL interface](./assets/play-yasgui.gif)
+
+And the example below show how to use the Geo plugin to show interesting features on a map:
+
+![Custom Yasgui SPARQL interface](./assets/play-yasgui-geo.gif)
+
 ### GraphDB — Visual Graph Explorer
 
 **[https://graph.data.era.europa.eu/](https://graph.data.era.europa.eu/)**
@@ -387,7 +417,16 @@ ERA hosts a public GraphDB instance that gives you a browser-based interface to 
 - **Repository browser**: browse named graphs (ontology, concept schemes, national RINF datasets) side by side
 - **Explore SKOS**: navigate controlled vocabularies (e.g. `op-types`, `platform-heights`, `signal-types`) as concept hierarchies
 
-This is the recommended starting point for participants who want to understand the ERA data model visually before writing their first CONSTRUCT query.
+This is a recommended starting point for participants who want to understand the ERA data model visually before writing their first CONSTRUCT query.
+
+![GraphDB Workbench — ERA Knowledge Graph](./assets/screenshot-graphdb.png)
+
+Select the location containing the specific data you want to access, either the ERA ontology or the RINF data.
+
+Below is a short example on how to use this.
+
+![GraphDB Workbench — ERA Knowledge Graph](./assets/play-graphdb.gif)
+
 
 ### RINF Working Group (SharePoint)
 
