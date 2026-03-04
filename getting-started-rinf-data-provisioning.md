@@ -1070,6 +1070,8 @@ Topology locations can also carry geographic WKT geometries:
 ] .
 ```
 
+> **v3.1.8**: `gsp:asWKT` has been made "future-required". From v3.1.8 of the ERA SHACL shapes, a `sh:Warning` is produced if geometry is absent on an infrastructure element. Ensure all elements carry a `gsp:hasGeometry`/`gsp:asWKT` triple.
+
 > **Coordinate order is longitude latitude**: `POINT(lon lat)`, not `POINT(lat lon)`. Per the [GeoSPARQL 1.1 standard (OGC)](https://www.ogc.org/standard/geosparql/), when no explicit CRS IRI is provided in the WKT literal, the default CRS is CRS84 — an axis-swapped WGS84 where longitude comes first. All WKT geometries in RINF must use WGS84 (CRS84) and follow longitude-latitude axis order. Getting this wrong is one of the most common errors.
 
 The expected WKT geometry type varies by network reference type:
@@ -1275,7 +1277,7 @@ Tracks also link to functional resources (see [Functional Resources](#functional
 
 > **Note**: The `era:length` property does not exist in the ERA ontology. Use `era:lengthOfTunnel` instead.
 
-> **Note**: The `era:lineReferenceTunnelStart and `era:lineReferenceTunnelEnd` will not be meaningfull when the tunnel spans multiple tracks.
+> **Note**: As of v3.1.8, `era:lineReferenceTunnelStart` and `era:lineReferenceTunnelEnd` are no longer declared as `owl:FunctionalProperty` and the `sh:maxCount 1` SHACL constraint on both properties has been removed. Tunnels spanning multiple tracks can now validly carry multiple start and end references — one per track.
 
 #### Bridge
 
@@ -1532,6 +1534,9 @@ graph LR
 | `era:etcsTransmittedTrackConditions` | 1.1.1.3.2.12.1 | IRI (SKOS `etcs-transmitted-tcs/TransmittedTrackConditions`) | maxCount=1; Warning if absent when level is set |
 | `era:etcsSystemCompatibility` | 1.1.1.3.2.9 | IRI (SKOS `etcs-system-compatibilities/ETCSSystemCompatibilities`) | repeatable; Warning if absent when level is set |
 | `era:etcsInfill` | 1.1.1.3.2.4 | IRI (SKOS `etcs-infills/`) | maxCount=1; applicable for Level 1 only |
+| `era:rbcID` | 1.1.1.3.2.16 | `xsd:string` | RBC identifier; **future-required** (Warning since v3.1.8) |
+
+> **Note (v3.1.8)**: `era:rbcID` has been made future-required at warning severity. SHACL will produce a `sh:Warning` if it is absent on an `era:ETCS` resource. Ensure your ETCS instances include this property.
 
 > **Note**: some older datasets and the construct SPARQL in this repository use `era:etcsLevel` (an earlier property name). The SHACL shape validates `era:etcsLevelType` (RINF 1.1.1.3.2.1). Use `era:etcsLevelType` in new data.
 
@@ -2497,7 +2502,7 @@ Common problems when uploading `.ttl` / `.nt` files:
 
 Running SHACL validation against a fresh ERA graph without applying the shape fixes will produce an overwhelming number of spurious violations that obscure real problems.
 
-1. **sh:severity** is defined as sh:Warning but I still get an sh:Violation. This is because of the wrong use of sh:severity. The RINF shapes have defined these on the SPARQLConstraint while they should (according to the W3C standard) be defined on the Node- or PropertyShape.
+1. **sh:severity** is defined as sh:Warning but I still get an sh:Violation. This was because of a wrong use of `sh:severity` in the ERA SHACL shapes: severity was defined on the `sh:SPARQLConstraint` instance rather than on the enclosing `sh:NodeShape`, which violates the W3C SHACL specification. **This has been fixed in v3.1.8** (released 2026-03-03), which moved all `sh:severity` declarations to `sh:NodeShape` level and introduced dedicated `*SPARQLWarning` NodeShapes for warning-severity SPARQL constraints. If you are still seeing `sh:Violation` for shapes that should produce `sh:Warning`, update your shapes file to v3.1.8 or later.
 
 2. **`InstancesMustHaveTypeShape` fires on vocabulary URIs**: SKOS concepts (e.g., `<http://data.europa.eu/949/concepts/contact-line-systems/10>`), OWL built-ins, and country authority URIs all lack an `rdf:type` declaration in your data graph. Without the `exclude-ontology-uris-from-type-check.sparql` fix, the shape reports a Warning for every such URI you reference. Apply the shape fix first.
 
