@@ -736,7 +736,7 @@ layout: two-cols
 | Portal | [data-interop.era.europa.eu](https://data-interop.era.europa.eu/) |
 | Application Guide | [rinf-appGuide](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/) |
 | ERA GitLab | [era-ontology](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology) |
-| UAT Environment | [uat.ld4rail...](https://uat.ld4rail.fpfis.tech.ec.europa.eu/) |
+| UAT Environment | [uat.ld4rail...](https://rinf.uat.data.test-era.europa.eu/) |
 | User Manual | [RINF User Manual](https://data-interop.era.europa.eu/RINF-User%20Manual%20v2.0.pdf) |
 | GraphDB | [graph.data.era.europa.eu](https://graph.data.era.europa.eu/) |
 
@@ -2565,7 +2565,7 @@ If your current RINF data is in the **legacy XML format**, you have two paths to
 
 ### Option 1 — Dataset Manager (server-side)
 
-1. Log in to the [**UAT Dataset Manager**](https://uat.ld4rail.fpfis.tech.ec.europa.eu/)
+1. Log in to the [**UAT Dataset Manager**](https://rinf.uat.data.test-era.europa.eu/)
 2. Upload your legacy `.xml` file
 3. The server validates it against the **XSD schema**
 4. On success, it is automatically **converted to RDF** (ontology v3.1)
@@ -2890,7 +2890,7 @@ layout: default
 
 <div class="text-lg mt-4">
 
-1. 🌐 Open: **https://uat.ld4rail.fpfis.tech.ec.europa.eu/**
+1. 🌐 Open: **https://rinf.uat.data.test-era.europa.eu/**
 2. 🔐 Log in with your credentials
 3. 📂 Navigate to your country's dataset
 4. 📤 Upload the railML example dataset (`.ttl` or `.nt`)
@@ -3661,7 +3661,7 @@ layout: two-cols
 **Data Provisioning Environment:**
 
 - **Production**: https://data-interop.era.europa.eu/
-- **UAT/Test**: https://uat.ld4rail.fpfis.tech.ec.europa.eu/
+- **UAT/Test**: https://rinf.uat.data.test-era.europa.eu/
 
 <v-clicks>
 

@@ -492,7 +492,7 @@ If your current RINF data is in the **legacy XML format**, ERA provides two read
 
 #### Option 1 — Dataset Manager (server-side conversion)
 
-1. Log in to the **UAT Dataset Manager**: https://uat.ld4rail.fpfis.tech.ec.europa.eu/
+1. Log in to the **UAT Dataset Manager**: https://rinf.uat.data.test-era.europa.eu/
 2. Upload your legacy `.xml` file.
 3. The server validates the file against the **XSD schema**.
 4. On success, the server automatically **converts the XML to ERA ontology v3.1 RDF**.
@@ -1912,7 +1912,7 @@ Several ERA properties reference `era:Document` instances (e.g., `era:conditions
 2. After upload, query the Reference Documents API (the Dataset Manager calls it internally or you can query it directly at `{base}/api/data-assets/documents`). Each document returns an `id` — a 40-character hex string assigned by the system — and the `fileName` (with extension).
 3. Construct the download URL: `{base}/api/data-assets/documents/{id}/download`
    - Production base URL: `https://ld4rail.fpfis.tech.ec.europa.eu` (confirm with ERA if this changes)
-   - UAT base URL: `https://uat.ld4rail.fpfis.tech.ec.europa.eu`
+   - UAT base URL: `https://rinf.uat.data.test-era.europa.eu`
 4. Use the ERA namespace URI `http://data.europa.eu/949/documents/{id}` as the URI for the `era:Document` resource in your RDF.
 
 ![How to get the URL of an uploaded reference document](./assets/how-to-get-uploaded-document-url.gif)
