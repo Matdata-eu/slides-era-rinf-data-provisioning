@@ -1,10 +1,16 @@
 # ERA RINF Data Provisioning Workshop
 
-Slidev presentation for the ERA hands-on workshop on RINF data provisioning, aimed at Infrastructure Managers and National Registration Entities.
+This repository hosts the source code for the presentation and getting started guide that supprted the the ERA hands-on workshop on RINF data provisioning, aimed at Infrastructure Managers and National Registration Entities.
+
+Open [the online interactive presentation](https://matdata-eu.github.io/slides-era-rinf-data-provisioning/) or download the slides from the [latest release](https://github.com/Matdata-eu/slides-era-rinf-data-provisioning/releases). 
+
+There's also a [getting-started guide](https://github.com/Matdata-eu/slides-era-rinf-data-provisioning/blob/main/getting-started-rinf-data-provisioning.md).
 
 **Date:** 25 February 2026 · European Union Agency for Railways
 
 ## Getting Started
+
+In case you want to run the interactive slides locally on your computer. Below follows developer documentation.
 
 ```bash
 npm install
@@ -25,7 +31,7 @@ Open [http://localhost:3030](http://localhost:3030) to view the slides.
 
 ### GitHub Pages
 The slides are automatically built and published to GitHub Pages on every push to `main`. The live presentation is available at:
-`https://<org>.github.io/slides-era-rinf-data-provisioning/`
+`https://matdata-eu.github.io/slides-era-rinf-data-provisioning/`
 
 ### PDF Release
 Pushing a `v*` tag triggers the **Create PDF Release** workflow, which exports the slides to PDF and attaches it to the GitHub release as `dim-accessing-data-<version>.pdf`. Running the workflow manually (via `workflow_dispatch`) will upload the PDF as a workflow artifact instead.
@@ -35,3 +41,4 @@ Pushing a `v*` tag triggers the **Create PDF Release** workflow, which exports t
 - `slides.md` — Main presentation content
 - `assets/` — Images and other static assets
 - `getting-started-rinf-data-provisioning.md` — Participant getting-started guide
+
