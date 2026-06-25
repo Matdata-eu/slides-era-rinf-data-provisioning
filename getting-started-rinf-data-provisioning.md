@@ -2127,7 +2127,7 @@ https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontolog
 
 **3. Shape fixes (SPARQL UPDATE pre-processing)**
 
-Before running validation, apply SPARQL UPDATE queries to patch known issues in the official shapes. Without these fixes you get spurious violations that obscure real problems. The [04-validate/shape-fixes/](04-validate/shape-fixes/) directory in this repository contains:
+Before running validation, apply SPARQL UPDATE queries to patch known issues in the official shapes. Without these fixes you get spurious violations that obscure real problems. The [https://github.com/Matdata-eu/raillML-to-ERA/tree/main/04-validate/shape-fixes](04-validate/shape-fixes/) directory of the railML-to-ERA repository contains:
 
 | Fix file | What it does |
 |---|---|
