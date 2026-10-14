@@ -622,7 +622,7 @@ layout: section
 
 # 🔍 ERA Data Portal Tour
 
-**https://data-interop.era.europa.eu/**
+**https://rinf.data.era.europa.eu/**
 
 <div class="absolute bottom-6 left-0 right-0 text-center text-xs text-gray-400">
   ① Welcome · ② Ecosystem · <span class="font-semibold text-white">③ Portal</span> · ④ Ontology · ⑤ Dataset · ⑥ Pipeline · ⑦ SHACL · ⑧ Access · ⑨ Q&A
@@ -630,7 +630,7 @@ layout: section
 
 <!--
 30 minutes touring the ERA Data Interoperability Portal.
-Switch to browser: open https://data-interop.era.europa.eu/
+Switch to browser: open https://rinf.data.era.europa.eu/
 We will navigate through each application live.
 -->
 
@@ -640,7 +640,7 @@ layout: two-cols
 
 # 🖥️ Portal Applications
 
-**Navigate to: https://data-interop.era.europa.eu/**
+**Navigate to: https://rinf.data.era.europa.eu/**
 
 <v-clicks>
 
@@ -733,11 +733,11 @@ layout: two-cols
 
 | Resource | URL |
 |---|---|
-| Portal | [data-interop.era.europa.eu](https://data-interop.era.europa.eu/) |
-| Application Guide | [rinf-appGuide](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/) |
+| Portal | [rinf.data.era.europa.eu](https://rinf.data.era.europa.eu/) |
+| Application Guide | [rinf-appGuide](https://rinf.data.era.europa.eu/era-vocabulary/rinf-appGuide/) |
 | ERA GitLab | [era-ontology](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology) |
 | UAT Environment | [uat.ld4rail...](https://rinf.uat.data.test-era.europa.eu/) |
-| User Manual | [RINF User Manual](https://data-interop.era.europa.eu/RINF-User%20Manual%20v2.0.pdf) |
+| User Manual | [RINF User Manual](https://rinf.data.era.europa.eu/RINF-User%20Manual%20v2.0.pdf) |
 | GraphDB | [graph.data.era.europa.eu](https://graph.data.era.europa.eu/) |
 
 </div>
@@ -2195,7 +2195,7 @@ The ReferenceBorderPoint is an ERA-managed resource — do NOT define it locally
   http://data.europa.eu/949/referenceBorderPoints/{UOPID}
 
 Alternatively, if the UOPID is not known in advance, a SPARQL CONSTRUCT query can use a SERVICE block to query the ERA endpoint:
-  https://data-interop.era.europa.eu/api/sparql
+  https://rinf.data.era.europa.eu/api/sparql
 and match by geometry (GeoSPARQL, with a tolerance margin) to find the correct ReferenceBorderPoint URI.
 The CSV on the ERA RINF website is the authoritative list of current border points.
 -->
@@ -3660,7 +3660,7 @@ layout: two-cols
 
 **Data Provisioning Environment:**
 
-- **Production**: https://data-interop.era.europa.eu/
+- **Production**: https://rinf.data.era.europa.eu/
 - **UAT/Test**: https://rinf.uat.data.test-era.europa.eu/
 
 <v-clicks>
@@ -3795,7 +3795,7 @@ Lists every version with:
 
 The Application Guide has a dedicated **Revision History** section:
 
-**[rinf-appGuide/#revisionSection](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/#revisionSection)**
+**[rinf-appGuide/#revisionSection](https://rinf.data.era.europa.eu/era-vocabulary/rinf-appGuide/#revisionSection)**
 
 Provides human-readable explanations of:
 - What changed and why
@@ -3885,8 +3885,8 @@ Use for:
 
 <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 text-gray-800 dark:text-blue-100 rounded text-sm">
 
-📖 **User Manual**: https://data-interop.era.europa.eu/RINF-User%20Manual%20v2.0.pdf  
-🔗 **Application Guide**: https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/  
+📖 **User Manual**: https://rinf.data.era.europa.eu/RINF-User%20Manual%20v2.0.pdf  
+🔗 **Application Guide**: https://rinf.data.era.europa.eu/era-vocabulary/rinf-appGuide/  
 🏢 **RINF SharePoint**: https://eraeuropaeu.sharepoint.com/sites/RINFNet
 
 </div>
@@ -4055,10 +4055,10 @@ layout: two-cols
 
 | Resource | Link |
 |---|---|
-| 📖 Application Guide | [rinf-appGuide](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/) |
+| 📖 Application Guide | [rinf-appGuide](https://rinf.data.era.europa.eu/era-vocabulary/rinf-appGuide/) |
 | 🦊 ERA GitLab | [era-ontology](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology) |
 | 📋 SHACL Shapes | [ERA-RINF-shapes.ttl](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology/-/raw/main/era-shacl/ERA-RINF-shapes.ttl) |
-| 📝 User Manual | [RINF User Manual](https://data-interop.era.europa.eu/RINF-User%20Manual%20v2.0.pdf) |
+| 📝 User Manual | [RINF User Manual](https://rinf.data.era.europa.eu/RINF-User%20Manual%20v2.0.pdf) |
 | 🔍 SPARQL (custom) | [yasgui.matdata.eu](https://yasgui.matdata.eu/) |
 | 🐍 Example repo | [raillML-to-ERA](https://github.com/Matdata-eu/raillML-to-ERA) |
 | SHACL engines | [Awesome semantic shapes](https://github.com/w3c-cg/awesome-semantic-shapes) |

@@ -351,7 +351,7 @@ The ERA ontology addresses these challenges with a formal, machine-readable data
 
 ERA publishes an application guide for RINF data provisioning:
 
-- [ERA RINF Application Guide](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/): official guidance on data requirements and ontology usage.
+- [ERA RINF Application Guide](https://rinf.data.era.europa.eu/era-vocabulary/rinf-appGuide/): official guidance on data requirements and ontology usage.
 
 ![ERA RINF Application Guide](./assets/screenshot-application-guide.png)
 
@@ -382,7 +382,7 @@ Keep track of what changed between ontology versions using these three complemen
    [CHANGELOG.md on GitLab](https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/era-ontology/-/blob/main/CHANGELOG.md)
 
 2. **Application Guide — Revision History** — Human-readable descriptions of what changed and why, including impact on data providers and migration guidance between versions:
-   [rinf-appGuide/#revisionSection](https://data-interop.era.europa.eu/era-vocabulary/rinf-appGuide/#revisionSection)
+   [rinf-appGuide/#revisionSection](https://rinf.data.era.europa.eu/era-vocabulary/rinf-appGuide/#revisionSection)
 
 3. **Git diff** — Compare any two ontology versions directly on GitLab (**Repository → Compare**), or locally:
    ```bash
@@ -425,7 +425,7 @@ Upload a subset of infrastructure data (e.g., only updated operational points) t
 
 ERA provides a public SPARQL endpoint for querying the published RINF Knowledge Graph:
 
-- **Endpoint**: https://data-interop.era.europa.eu/api/sparql (or the ERA-specific endpoint; check ERA documentation for the current URL)
+- **Endpoint**: https://rinf.data.era.europa.eu/api/sparql (or the ERA-specific endpoint; check ERA documentation for the current URL)
 
 Use this to:
 - Explore the existing Knowledge Graph structure to understand expected patterns
@@ -723,7 +723,7 @@ The open-source [`Matdata-eu/simple-dereferencing`](https://github.com/Matdata-e
 
 ```bash
 docker run -p 8080:80 \
-  -e SPARQL_ENDPOINT=https://data-interop.era.europa.eu/api/sparql \
+  -e SPARQL_ENDPOINT=https://rinf.data.era.europa.eu/api/sparql \
   -e BASE_URI=http://data.europa.eu/949/ \
   ghcr.io/matdata-eu/uri-dereferencer:latest
 ```
@@ -1815,7 +1815,7 @@ Operational points of type "border point" (SKOS concept `op-types/90`) have spec
    > **Important:** The `era:ReferenceBorderPoint` resource at `http://data.europa.eu/949/referenceBorderPoints/EUBP1` is defined and maintained by ERA. Your dataset only needs to reference it; do not replicate or redefine it.
 
    **Alternative — federated SPARQL lookup by geometry:**  
-   If the UOPID is not reliably known, a SPARQL CONSTRUCT query can resolve the correct `era:ReferenceBorderPoint` URI via a `SERVICE` call to the ERA SPARQL endpoint (`https://data-interop.era.europa.eu/api/sparql`), matching by GeoSPARQL geometry with a tolerance margin:
+   If the UOPID is not reliably known, a SPARQL CONSTRUCT query can resolve the correct `era:ReferenceBorderPoint` URI via a `SERVICE` call to the ERA SPARQL endpoint (`https://rinf.data.era.europa.eu/api/sparql`), matching by GeoSPARQL geometry with a tolerance margin:
 
    ```sparql
    PREFIX gsp: <http://www.opengis.net/ont/geosparql#>
